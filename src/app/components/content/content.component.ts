@@ -13,7 +13,7 @@ export class ContentComponent implements OnInit {
 
   constructor(private clanService: ClanService) {
     this.clan = new Clan();
-    //this.get("%23YRL0YC8R");
+    this.get("%23YRL0YC8R");
    }
 
 
