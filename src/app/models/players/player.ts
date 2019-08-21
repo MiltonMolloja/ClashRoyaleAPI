@@ -2,15 +2,19 @@ import { Item } from './item';
 import { PlayerLeagueStatistics } from './player-league-statistics';
 import { Arena } from '../clans/arena';
 import { PlayerClan } from './player-clan';
+import { PlayerItemLevel } from './player-item-level';
+import { PlayerAchievementBadge } from './player-achievement-badge';
+import { PlayerAchievementProgress } from './player-achievement-progress';
+
 
 export class Player {
   clan: PlayerClan;
-  cards: List<PlayerItemLevel>;
+  cards: Array<PlayerItemLevel>;
   role: string;
   arena: Arena;
   wins: number;
   losses: number;
-  badges: List<PlayerAchievementBadge>;
+  badges: Array<PlayerAchievementBadge>;
   totalDonations: number;
   leagueStatistics: PlayerLeagueStatistics;
   currentFavouriteCard: Item;
@@ -21,29 +25,29 @@ export class Player {
   bestTrophies: number;
   donations: number;
   donationsReceived: number;
-  achievements: List<PlayerAchievementProgress>;
+  achievements: Array<PlayerAchievementProgress>;
   battleCount: number;
   threeCrownWins: number;
   challengeCardsWon: number;
   challengeMaxWins: number;
   tournamentCardsWon: number;
   tournamentBattleCount: number;
-  currentDeck: List<PlayerItemLevel>;
+  currentDeck: Array<PlayerItemLevel>;
   warDayWins: number;
   clanCardsCollected: number;
   starPoints: number;
 
   Player(
     clan: PlayerClan,
-    cards: List<PlayerItemLevel>,
+    cards: Array<PlayerItemLevel>,
     role: string,
     arena: Arena,
     wins: number,
     losses: number,
-    badges: List<PlayerAchievementBadge>,
+    badges: Array<PlayerAchievementBadge>,
     totalDonations: number,
     leagueStatistics: PlayerLeagueStatistics,
-    currentFavouriteCard: Item;
+    currentFavouriteCard: Item,
     tag: string,
     name: string,
     expLevel: number,
@@ -51,14 +55,14 @@ export class Player {
     bestTrophies: number,
     donations: number,
     donationsReceived: number,
-    achievements: List<PlayerAchievementProgress>,
+    achievements: Array<PlayerAchievementProgress>,
     battleCount: number,
     threeCrownWins: number,
     challengeCardsWon: number,
     challengeMaxWins: number,
     tournamentCardsWon: number,
     tournamentBattleCount: number,
-    currentDeck: List<PlayerItemLevel>,
+    currentDeck: Array<PlayerItemLevel>,
     warDayWins: number,
     clanCardsCollected: number,
     starPoints: number,

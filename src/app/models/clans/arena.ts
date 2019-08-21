@@ -8,7 +8,7 @@ export class Arena {
   Arena(
     localizedShortName: string,
     name: string,
-    localizedName: string;
+    localizedName: string,
     id: number,
     iconUrls: Object,
   ) {

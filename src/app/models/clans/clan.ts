@@ -2,7 +2,7 @@ import { Location } from './location';
 import { ClanMember } from './clan-member';
 
 export class Clan {
-  memberList: List<ClanMember>;
+  memberList: Array<ClanMember>;
   tag: string;
   requiredTrophies: number;
   badgeId: number;
@@ -22,7 +22,7 @@ export class Clan {
 
   Clan
   (
-    memberList: List<ClanMember>,
+    memberList: Array<ClanMember>,
     tag: string,
     requiredTrophies: number,
     badgeId: number,
