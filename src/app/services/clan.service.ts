@@ -7,18 +7,28 @@ import { Observable  } from 'rxjs';
 })
 export class ClanService {
 
-  private baseUrl = "https://api.clashroyale.com/v1/clans?name=";
+  private baseUrl = "https://api.clashroyale.com/v1/clans";
+
+  private authorization="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmMjFmOGI1LTQ1M2EtNDZjOC04NmU0LTNkYTM0ZDIwMmM1MSIsImlhdCI6MTU2NjMwNzc2MCwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.MCgZOqcknt2ecvqPE3D0-NjW2Z5HxU6_AVUiyGLnyghxWZa2aEYOsD5sGCpxIkrJtfXHAQx2XjKEpSJVaVPK1Q";
 
   constructor(private _http: HttpClient) { }
 
-  public get(tag: string): Observable<any> {
-    // petición por get a esa url de un api rest
+  public get(name: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": this.authorization
+      })
+    };
+    return this._http.get(this.baseUrl + "?name=" + name, httpOptions);
+  }
+
+  public get2(locationId: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmMjFmOGI1LTQ1M2EtNDZjOC04NmU0LTNkYTM0ZDIwMmM1MSIsImlhdCI6MTU2NjMwNzc2MCwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.MCgZOqcknt2ecvqPE3D0-NjW2Z5HxU6_AVUiyGLnyghxWZa2aEYOsD5sGCpxIkrJtfXHAQx2XjKEpSJVaVPK1Q"
       })
     };
-    return this._http.get(this.baseUrl + tag, httpOptions);
+    return this._http.get(this.baseUrl + "?locationId=" + locationId, httpOptions);
   }
 
 }
