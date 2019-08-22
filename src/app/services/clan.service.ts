@@ -7,28 +7,151 @@ import { Observable  } from 'rxjs';
 })
 export class ClanService {
 
-  private baseUrl = "https://api.clashroyale.com/v1/clans";
+  private baseUrl : string= "https://api.clashroyale.com/v1/clans";
 
-  private authorization="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmMjFmOGI1LTQ1M2EtNDZjOC04NmU0LTNkYTM0ZDIwMmM1MSIsImlhdCI6MTU2NjMwNzc2MCwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.MCgZOqcknt2ecvqPE3D0-NjW2Z5HxU6_AVUiyGLnyghxWZa2aEYOsD5sGCpxIkrJtfXHAQx2XjKEpSJVaVPK1Q";
+  private authorization : string="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmMjFmOGI1LTQ1M2EtNDZjOC04NmU0LTNkYTM0ZDIwMmM1MSIsImlhdCI6MTU2NjMwNzc2MCwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.MCgZOqcknt2ecvqPE3D0-NjW2Z5HxU6_AVUiyGLnyghxWZa2aEYOsD5sGCpxIkrJtfXHAQx2XjKEpSJVaVPK1Q";
+
 
   constructor(private _http: HttpClient) { }
 
-  public get(name: string): Observable<any> {
+  public getAll(name?: string, locationId?:number, minMembers?:number, maxMembers?:number, minScore?:number, limit?:number, after?: string, before?:string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Authorization": this.authorization
       })
     };
-    return this._http.get(this.baseUrl + "?name=" + name, httpOptions);
+
+    var consultUrl: string= "?";
+    var moreOneParameter : boolean= false;
+
+    if (name!=null) {
+      consultUrl+="name="+name;
+      moreOneParameter=true;
+    }
+
+    if (locationId!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="locationId="+locationId;
+      moreOneParameter=true;
+    }
+
+    if (minMembers!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="minMembers="+minMembers;
+      moreOneParameter=true;
+    }
+
+    if (maxMembers!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="maxMembers="+maxMembers;
+      moreOneParameter=true;
+    }
+    if (minScore!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="minScore="+minScore;
+      moreOneParameter=true;
+    }
+    if (limit!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="limit="+limit;
+      moreOneParameter=true;
+    }
+    if (after!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="after="+after;
+      moreOneParameter=true;
+    }
+    if (before!=null) {
+      consultUrl+= moreOneParameter ? "&" : "";
+      consultUrl+="before="+before;
+      moreOneParameter=true;
+    }
+
+    return this._http.get(this.baseUrl + consultUrl , httpOptions);
   }
 
-  public get2(locationId: number): Observable<any> {
+
+  public getTag(clanTag: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmMjFmOGI1LTQ1M2EtNDZjOC04NmU0LTNkYTM0ZDIwMmM1MSIsImlhdCI6MTU2NjMwNzc2MCwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.MCgZOqcknt2ecvqPE3D0-NjW2Z5HxU6_AVUiyGLnyghxWZa2aEYOsD5sGCpxIkrJtfXHAQx2XjKEpSJVaVPK1Q"
+        "Authorization": this.authorization
       })
     };
-    return this._http.get(this.baseUrl + "?locationId=" + locationId, httpOptions);
+    clanTag = clanTag.replace("#", "%23");
+    return this._http.get(this.baseUrl + "/" + clanTag , httpOptions);
   }
 
+  public getMembers(clanTag: string, limit?:number, after?: string, before?: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": this.authorization
+      })
+    };
+
+    var consultUrl: string= "";
+    var moreOneParameter : boolean= false;
+
+    if (limit!=null) {
+      consultUrl+= moreOneParameter ? "&" : "?";
+      consultUrl+="limit="+limit;
+      moreOneParameter=true;
+    }
+    if (after!=null) {
+      consultUrl+= moreOneParameter ? "&" : "?";
+      consultUrl+="after="+after;
+      moreOneParameter=true;
+    }
+    if (before!=null) {
+      consultUrl+= moreOneParameter ? "&" : "?";
+      consultUrl+="before="+before;
+      moreOneParameter=true;
+    }
+    clanTag = clanTag.replace("#", "%23");
+    console.log(this.baseUrl + "/" + clanTag + "/members" + consultUrl);
+
+    return this._http.get(this.baseUrl + "/" + clanTag + "/members" + consultUrl, httpOptions);
+  }
+
+
+  public getWarLog(clanTag: string, limit?:number, after?: string, before?: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": this.authorization
+      })
+    };
+
+    var consultUrl: string= "";
+    var moreOneParameter : boolean= false;
+
+    if (limit!=null) {
+      consultUrl+= moreOneParameter ? "&" : "?";
+      consultUrl+="limit="+limit;
+      moreOneParameter=true;
+    }
+    if (after!=null) {
+      consultUrl+= moreOneParameter ? "&" : "?";
+      consultUrl+="after="+after;
+      moreOneParameter=true;
+    }
+    if (before!=null) {
+      consultUrl+= moreOneParameter ? "&" : "?";
+      consultUrl+="before="+before;
+      moreOneParameter=true;
+    }
+    clanTag = clanTag.replace("#", "%23");
+    console.log(this.baseUrl + "/" + clanTag + "/members" + consultUrl);
+
+    return this._http.get(this.baseUrl + "/" + clanTag + "/warlog" + consultUrl, httpOptions);
+  }
+
+  public getCurrentWar(clanTag: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Authorization": this.authorization
+      })
+    };
+    clanTag = clanTag.replace("#", "%23");
+    console.log(this.baseUrl + "/" + clanTag + "/currentwar" );
+    return this._http.get(this.baseUrl + "/" + clanTag + "/currentwar", httpOptions);
+  }
 }
