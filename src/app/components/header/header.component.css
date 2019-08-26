@@ -251,7 +251,7 @@ ol {
 	background: #131313;
 	clear: both;
 	overflow: hidden;
-	padding: 18px 0;
+	padding: 14px 0;
 	border-bottom: 1px solid #ffb320;
 }
 
@@ -1315,7 +1315,7 @@ ol {
 
 /* Large Mobile :480px. */
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 267px) {
 	.header-section {
 		overflow: visible;
 		padding: 23px 0;
@@ -1356,7 +1356,7 @@ ol {
 		display: none;
 	}
 	.hero-slider .hs-item {
-		height: 700px;
+		height: 500px;
 	}
 	.hero-slider .hs-text h2 {
 		font-size: 36px;
