@@ -64,7 +64,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th></th>
+
         <th></th>
         <th>Nombre</th>
         <th>Exp</th>
@@ -73,10 +73,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let clan of clans;let indice=index">
-        <td>
-            {{indice + 1 }}
-        </td>
+      <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
+
         <td>
             <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}"  style="width:35px;">
         <td>{{ clan.name }}</td>
@@ -91,5 +89,6 @@
       </tr>
     </tbody>
   </table>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
