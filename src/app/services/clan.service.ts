@@ -66,7 +66,10 @@ export class ClanService {
       consultUrl+="before="+before;
       moreOneParameter=true;
     }
-
+    consultUrl = consultUrl.replace("#", "%23");
+    consultUrl = consultUrl.replace(" ", "%20");
+    consultUrl = consultUrl.replace("}", "%7D");
+    console.log(this.baseUrl + consultUrl);
     return this._http.get(this.baseUrl + consultUrl , httpOptions);
   }
 
@@ -151,7 +154,7 @@ export class ClanService {
       })
     };
     clanTag = clanTag.replace("#", "%23");
-    console.log(this.baseUrl + "/" + clanTag + "/currentwar" );
+    //console.log(this.baseUrl + "/" + clanTag + "/currentwar" );
     return this._http.get(this.baseUrl + "/" + clanTag + "/currentwar", httpOptions);
   }
 }

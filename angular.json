@@ -25,6 +25,10 @@
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.css",
+              //"./src/assets/css/animate.css",
+              //"./src/assets/css/font-awesome.min",
+              //"./src/assets/css/owl.carousel.css",
+              //"./src/assets/css/style.css",
               "src/styles.css"
             ],
             "scripts": [

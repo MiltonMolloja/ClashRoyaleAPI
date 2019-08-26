@@ -2,7 +2,7 @@
 ------------------------------------
   Game Warrior Template
   Version: 1.0
- ------------------------------------
+ ------------------------------------ 
  ====================================*/
 
 /*---------------------------*/
@@ -569,6 +569,15 @@ ol {
 	background: #ff205f;
 }
 
+/*----------------------
+  Tournaments Section
+------------------------*/
+
+.tournaments-section {
+	background-image: url("../img/pattern.png");
+	background-repeat: repeat;
+}
+
 .tournament-title {
 	display: inline-block;
 	padding: 7px 25px;
@@ -703,6 +712,30 @@ ol {
 	font-size: 12px;
 }
 
+/*----------------------
+  Footer top Section
+------------------------*/
+
+.footer-top-section {
+	background-image: url("../img/pattern.png");
+	background-repeat: repeat;
+	padding: 72px 0;
+}
+
+.footer-top-section .container {
+	position: relative;
+}
+
+.footer-top-bg {
+	position: absolute;
+	left: -30px;
+	bottom: -85px;
+	z-index: 2;
+}
+
+.footer-logo img {
+	margin-bottom: 35px;
+}
 
 .footer-widget {
 	padding: 40px 30px 7px;

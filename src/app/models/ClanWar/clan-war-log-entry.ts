@@ -6,7 +6,7 @@ export class ClanWarLogEntry {
   seasonId: number;
   participants: Array<ClanWarParticipant>;
   createdDate: string;
-
+ 
   ClanWarLogEntry(
     standings: Array<ClanWarStanding>,
     seasonId: number,

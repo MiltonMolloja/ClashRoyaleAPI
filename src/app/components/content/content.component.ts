@@ -8,6 +8,8 @@ import { PlayerService } from 'src/app/services/player.service';
 import { Player } from 'src/app/models/players/player';
 import { Chest } from 'src/app/models/players/chest';
 import { Battle } from 'src/app/models/players/battle';
+import { Item } from 'src/app/models/players/item';
+import { ClanWarClan } from 'src/app/models/ClanWar/clan-war-clan';
 
 @Component({
   selector: 'app-content',
@@ -38,6 +40,8 @@ export class ContentComponent implements OnInit {
   clanTag: string;
   playerTag: string;
 
+  ClanWarLog : Array<ClanWarLogEntry>;
+
   constructor(private clanService: ClanService,private playerService: PlayerService) {
     this.clan = new Clan();
     this.clans = new Array<Clan>();
@@ -51,6 +55,9 @@ export class ContentComponent implements OnInit {
     this.currentClanWar = new CurrentClanWar;
     this.battle = new Battle();
     this.battles = new Array<Battle>();
+
+    this.ClanWarLog = new Array<ClanWarLogEntry>();
+
     //this.name = null;
     this.locationId = null;
     this.minMembers = null;
@@ -63,13 +70,13 @@ export class ContentComponent implements OnInit {
     this.playerTag = null;
     //this.name = "xxxx";
     //this.minMembers = 2;
-    this.maxMembers = 8;
-    this.clanTag = "#Y9PQYQ0R";
+    //this.maxMembers = 8;
+    //this.clanTag = "#Y9PQYQ0R";
     //this.playerTag = "#PRRYRC98J";
 
-    this.limit = 10;
+    //this.limit = 10;
     //this.before = "asd";
-    this.getClanAll();
+    //this.getClanAll();
     //this.getClanTag();
     //this.getClanMember();
     //this.getClanWarLog();
@@ -77,6 +84,8 @@ export class ContentComponent implements OnInit {
     //this.getPlayerTag();
     //this.getPlayerUpComingChests();
     //this.getPlayerBattleLog();
+    //this.clans = this.getClanAll();
+    //console.log(this.getClanCurrentWarString("#YV2C8YC9"));
   }
 
 
@@ -84,10 +93,14 @@ export class ContentComponent implements OnInit {
   }
 
   getClanAll() {
+    this.clans = new Array<Clan>();
     this.clanService.getAll(this.name, this.locationId, this.minMembers, this.maxMembers, this.minScore, this.limit, this.after, this.before)
-      .subscribe((response: Array<Clan>) => {
-        this.clans = new Array<Clan>();
-        this.clans = response;
+      .subscribe( response => {
+        response.items.forEach(element => {
+          this.clan = new Clan();
+          Object.assign(this.clan, element);
+          this.clans.push(this.clan);
+        });
         console.log(this.clans);
       }
         , error => console.log(error)
@@ -107,10 +120,10 @@ export class ContentComponent implements OnInit {
 
 
   getClanMember() {
+    this.clanMembers = new Array<ClanMember>();
     this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
-      .subscribe((response: Array<ClanMember>) => {
-        this.clanMembers = new Array<ClanMember>();
-        this.clanMembers = response;
+      .subscribe((response) => {
+        this.clanMembers = response.items;
         console.log(this.clanMembers);
       }
         , error => console.log(error)
@@ -118,26 +131,30 @@ export class ContentComponent implements OnInit {
   }
 
   getClanWarLog() {
+    this.ClanWarLog = new Array<ClanWarLogEntry>();
     this.clanService.getWarLog(this.clanTag, this.limit, this.after, this.before)
-      .subscribe((response: ClanWarLogEntry) => {
-        this.clanWarLogEntry = new ClanWarLogEntry;
-        this.clanWarLogEntry = response;
-        console.log(this.clanWarLogEntry);
+      .subscribe((response) => {
+        this.ClanWarLog = response.items;
+        console.log(this.ClanWarLog);
       }
         , error => console.log(error)
       );
   }
 
   getClanCurrentWar() {
+    this.currentClanWar = new CurrentClanWar;
+    this.currentClanWar.clan = new ClanWarClan();
     this.clanService.getCurrentWar(this.clanTag)
-      .subscribe((response: CurrentClanWar) => {
+      .subscribe((response) => {
         this.currentClanWar = new CurrentClanWar;
         this.currentClanWar = response;
+        this.currentClanWar.clan = response.clan;
         console.log(this.currentClanWar);
       }
         , error => console.log(error)
       );
   }
+
 
   getPlayerTag() {
     this.playerService.getTag(this.playerTag)
@@ -171,4 +188,23 @@ export class ContentComponent implements OnInit {
         , error => console.log(error)
       );
   }
+
+  selecClan(
+    clan: Clan,
+    limit?: number,
+    after?: string,
+    before?: string
+  ){
+    this.clan = clan;
+    this.clanTag = clan.tag;
+    this.limit = limit;
+    this.after = after;
+    this.before = before;
+    console.log(this.limit);
+  }
+
+  selecClanWarLogEntry(clanWarLogEntry : ClanWarLogEntry){
+    this.clanWarLogEntry = clanWarLogEntry;
+  }
+
 }
