@@ -74,7 +74,7 @@ export class ContentComponent implements OnInit {
     //this.clanTag = "#Y9PQYQ0R";
     //this.playerTag = "#PRRYRC98J";
 
-    //this.limit = 10;
+    this.limit = 10;
     //this.before = "asd";
     //this.getClanAll();
     //this.getClanTag();
