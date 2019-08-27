@@ -1,0 +1,166 @@
+<div class="container">
+  <br>
+  <div class="row col-12">
+    <div class=" col-9">
+      <h1>{{clan.name}}</h1>
+      <div class="row">
+        <div class="col-3">
+          <h4>{{clan.tag}}</h4>
+        </div>
+        <div class="row col-3">
+          <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+          <h4>{{clan.clanChestLevel}}</h4>
+        </div>
+        <div class="row col-3">
+          <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+          <h4>{{clan.clanWarTrophies}}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row col-3">
+      <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:120px;" />
+    </div>
+  </div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#info">Informacion</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#war">Guerra</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#battles">Batallas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#stats">Estadisticas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#history">Historia</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane container active" id="info">
+      <div class="row">
+        <div class="row col-4">
+          <div class="col-2">
+            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+          </div>
+          <div class="col-2">
+            <h4 class="row">Trofeo </h4>
+            <p class="row">{{clan.clanWarTrophies}}</p>
+          </div>
+        </div>
+        <div class="row col-4">
+          <div class="col-2">
+            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+          </div>
+          <div class="col-2">
+            <h4 class="row">Trofeos Requeridos </h4>
+            <p class="row">{{clan.clanWarTrophies}}</p>
+          </div>
+        </div>
+        <div class="row col-4">
+          <div class="col-2">
+            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+          </div>
+          <div class="col-2">
+            <h4 class="row">Donaciones Por Semana </h4>
+            <p class="row">{{clan.clanWarTrophies}}</p>
+          </div>
+        </div>
+        <<div class="row col-4">
+          <div class="col-2">
+            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+          </div>
+          <div class="col-2">
+            <h4 class="row">Miebros </h4>
+            <p class="row">{{clan.clanWarTrophies}}</p>
+          </div>
+      </div>
+      <div class="row col-4">
+        <div class="col-2">
+          <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+        </div>
+        <div class="col-2">
+          <h4 class="row">Pais </h4>
+          <p class="row">{{clan.clanWarTrophies}}</p>
+        </div>
+      </div>
+      <div class="row col-4">
+        <div class="col-2">
+          <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+        </div>
+        <div class="col-2">
+          <h4 class="row">Tipo </h4>
+          <p class="row">{{clan.clanWarTrophies}}</p>
+        </div>
+      </div>
+      <div>
+
+          <div class="row">
+              <div class="col">
+                <table class="table table-striped" [mfData]="clanMembers" #mf="mfDataTable" [mfRowsOnPage]="5">
+                  <thead>
+                    <tr>
+                      <th style="width: 30%">
+                        <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="expLevel">expLevel</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="role">role</mfDefaultSorter>
+                      </th>
+                      <th style="width: 30%">
+                        <mfDefaultSorter by="trophies">trophies</mfDefaultSorter>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of mf.data">
+                      <td>
+                        <img src="{{urlImgInit + item.badgeId + urlImgFinis}}" style="width:35px;">
+                        {{ item.name }}
+                      </td>
+                      <td>
+                        <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+                        {{ item.expLevel }}
+                      </td>
+                      <td>{{item.role}} / 50</td>
+                      <td>
+                        <img src="{{'https://statsroyale.com/images/flags/' + item.location.id + '.png'}}" style="width:35px;"
+                          *ngIf='!(item.location.name==="International"||item.location.name==="Asia"||item.location.name==="North America" ||item.location.name==="Ascension Island")'>
+                        {{ item.location.trophies}}
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane container fade" id="war">
+    war
+  </div>
+  <div class="tab-pane container fade" id="battles">
+    battles
+  </div>
+  <div class="tab-pane container fade" id="stats">
+    stats
+  </div>
+  <div class="tab-pane container fade" id="history">
+    history
+  </div>
+</div>
+</div>

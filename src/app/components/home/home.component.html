@@ -51,7 +51,8 @@
   <div class="news-ticker">
     <div class="news-ticker-contant">
       <div class="nt-item"><span class="new">new</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </div>
-      <div class="nt-item"><span class="strategy">strategy</span>Isum dolor sit amet, consectetur adipiscing elit. </div>
+      <div class="nt-item"><span class="strategy">strategy</span>Isum dolor sit amet, consectetur adipiscing elit.
+      </div>
       <div class="nt-item"><span class="racing">racing</span>Isum dolor sit amet, consectetur adipiscing elit. </div>
     </div>
   </div>
@@ -60,80 +61,83 @@
 
 <div class="row">
   <div class="col">
-    <table class="table table-striped" [mfData]="clans" #mf="mfDataTable" [mfRowsOnPage]="5" [mfSortBy]="">
+    <table class="table table-striped" [mfData]="clans" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
-      <tr>
-          <th style="width: 20%">
-              <mfDefaultSorter by=""></mfDefaultSorter>
+        <tr>
+          <th style="width: 30%">
+            <mfDefaultSorter by="name">Name</mfDefaultSorter>
           </th>
           <th style="width: 20%">
-              <mfDefaultSorter by="name">Name</mfDefaultSorter>
-          </th>
-          <th style="width: 50%">
-              <mfDefaultSorter by="clanScore">Exp</mfDefaultSorter>
-          </th>
-          <th style="width: 10%">
-              <mfDefaultSorter by="members">Miembros</mfDefaultSorter>
+            <mfDefaultSorter by="clanScore">Exp</mfDefaultSorter>
           </th>
           <th style="width: 20%">
-              <mfDefaultSorter by="location.name">Pais</mfDefaultSorter>
+            <mfDefaultSorter by="members">Miembros</mfDefaultSorter>
           </th>
-      </tr>
+          <th style="width: 30%">
+            <mfDefaultSorter by="location.name">Pais</mfDefaultSorter>
+          </th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of mf.data">
-          <td></td>
-          <td>{{item.name}}</td>
-          <td>{{item.clanScore}}</td>
-          <td class="text-right">{{item.members}}</td>
-          <td>{{item.location.name}}</td>
-      </tr>
+        <tr *ngFor="let item of mf.data">
+          <td>
+            <img src="{{urlImgInit + item.badgeId + urlImgFinis}}" style="width:35px;">
+            {{ item.name }}
+          </td>
+          <td>
+            <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+            {{ item.clanScore }}
+          </td>
+          <td>{{item.members}} / 50</td>
+          <td>
+            <img src="{{'https://statsroyale.com/images/flags/' + item.location.id + '.png'}}" style="width:35px;"
+              *ngIf='!(item.location.name==="International"||item.location.name==="Asia"||item.location.name==="North America" ||item.location.name==="Ascension Island")'>
+            {{ item.location.name}}
+          </td>
+        </tr>
       </tbody>
       <tfoot>
-      <tr>
+        <tr>
           <td colspan="4">
-              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
           </td>
-      </tr>
+        </tr>
       </tfoot>
-  </table>
+    </table>
   </div>
-  <div class="col">
-      <div class="container">
-          <h2>Mejores Jugadores</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Nombre</th>
-                <th>Exp</th>
-                <th>Miembros</th>
-                <th>Pais</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
 
-                <td>
-                    <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}"  style="width:35px;">
-                <td>{{ clan.name }}</td>
-                <td>
-                    <img src="https://cdn.statsroyale.com/images/clan-trophies.png"  style="width:35px;">
-                    {{ clan.clanScore }}</td>
-                <td>{{ clan.members }} / 50</td>
-                <td>
-                    <img src="{{'https://statsroyale.com/images/flags/' + clan.location.id + '.png'}}"  style="width:35px;"
-                    *ngIf='!(clan.location.name==="International"||clan.location.name==="Asia"||clan.location.name==="North America")'>
-                      {{ clan.location.name}}
-              </tr>
-            </tbody>
-          </table>
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
+
+  <div class="col">
+    <div class="container">
+      <h2>Mejores Jugadores</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Exp</th>
+            <th>Miembros</th>
+            <th>Pais</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
+
+            <td>
+              <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}" style="width:35px;">
+            <td>{{ clan.name }}</td>
+            <td>
+              <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+              {{ clan.clanScore }}</td>
+            <td>{{ clan.members }} / 50</td>
+            <td>
+              <img src="{{'https://statsroyale.com/images/flags/' + clan.location.id + '.png'}}" style="width:35px;"
+                *ngIf='!(clan.location.name==="International"||clan.location.name==="Asia"||clan.location.name==="North America")'>
+              {{ clan.location.name}}
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
 
   </div>
 </div>
-
-
-
-

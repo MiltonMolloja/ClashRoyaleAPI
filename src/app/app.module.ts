@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 
 import {NgxPaginationModule} from 'ngx-pagination';
 import {DataTableModule} from "angular-6-datatable";
+import { ClanComponent } from './components/clan/clan.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {DataTableModule} from "angular-6-datatable";
     HeaderComponent,
     FooterComponent,
     ContentComponent,
-    HomeComponent
+    HomeComponent,
+    ClanComponent
   ],
   imports: [
     BrowserModule,

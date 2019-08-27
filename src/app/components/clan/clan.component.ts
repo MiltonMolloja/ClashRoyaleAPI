@@ -12,12 +12,11 @@ import { Item } from 'src/app/models/players/item';
 import { ClanWarClan } from 'src/app/models/ClanWar/clan-war-clan';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-clan',
+  templateUrl: './clan.component.html',
+  styleUrls: ['./clan.component.css']
 })
-export class HomeComponent implements OnInit {
-
+export class ClanComponent implements OnInit {
   clan: Clan;
   clans: Array<Clan>;
   player: Player;
@@ -43,12 +42,7 @@ export class HomeComponent implements OnInit {
 
   ClanWarLog : Array<ClanWarLogEntry>;
 
-  urlImgInit: string;
-  urlImgFinis: string;
-
   constructor(private clanService: ClanService,private playerService: PlayerService) {
-    this.urlImgInit="https://statsroyale.com/images/clanwars/";
-    this.urlImgFinis="_gold1.png";
     this.clan = new Clan();
     this.clans = new Array<Clan>();
     this.player = new Player();
@@ -75,16 +69,16 @@ export class HomeComponent implements OnInit {
     this.clanTag = null;
     this.playerTag = null;
     //this.name = "xxxx";
-    this.minMembers = 2;
+    //this.minMembers = 2;
     //this.maxMembers = 8;
-    //this.clanTag = "#Y9PQYQ0R";
+    this.clanTag = "#Y9PQYQ0R";
     //this.playerTag = "#PRRYRC98J";
 
     //this.limit = 10;
     //this.before = "asd";
-    this.getClanAll();
-    //this.getClanTag();
-    //this.getClanMember();
+    //this.getClanAll();
+    this.getClanTag();
+    this.getClanMember();
     //this.getClanWarLog();
     //this.getClanCurrentWar();
     //this.getPlayerTag();
@@ -92,15 +86,11 @@ export class HomeComponent implements OnInit {
     //this.getPlayerBattleLog();
     //this.clans = this.getClanAll();
     //console.log(this.getClanCurrentWarString("#YV2C8YC9"));
-
-
-
-
   }
+
 
   ngOnInit() {
   }
-
 
   getClanAll() {
     this.clans = new Array<Clan>();
@@ -111,7 +101,6 @@ export class HomeComponent implements OnInit {
           Object.assign(this.clan, element);
           this.clans.push(this.clan);
         });
-
         console.log(this.clans);
       }
         , error => console.log(error)
