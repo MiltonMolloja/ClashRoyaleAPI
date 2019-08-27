@@ -58,37 +58,77 @@
 </div>
 <!-- Latest news section end -->
 
+<div class="row">
+  <div class="col">
+      <div class="container">
+          <h2>Mejores Clanes</h2>
+          <table class="table">
+            <thead>
+              <tr>
 
-<div class="container">
-  <h2>Mejores Clanes</h2>
-  <table class="table">
-    <thead>
-      <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Exp</th>
+                <th>Miembros</th>
+                <th>Pais</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
 
-        <th></th>
-        <th>Nombre</th>
-        <th>Exp</th>
-        <th>Miembros</th>
-        <th>Pais</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>
+                    <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}"  style="width:35px;">
+                <td>{{ clan.name }}</td>
+                <td>
+                    <img src="https://cdn.statsroyale.com/images/clan-trophies.png"  style="width:35px;">
+                    {{ clan.clanScore }}</td>
+                <td>{{ clan.members }} / 50</td>
+                <td>
+                    <img src="{{'https://statsroyale.com/images/flags/' + clan.location.id + '.png'}}"  style="width:35px;"
+                    *ngIf='!(clan.location.name==="International"||clan.location.name==="Asia"||clan.location.name==="North America")'>
+                      {{ clan.location.name}}
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+  </div>
+  <div class="col">
+      <div class="container">
+          <h2>Mejores Jugadores</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Exp</th>
+                <th>Miembros</th>
+                <th>Pais</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
 
-        <td>
-            <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}"  style="width:35px;">
-        <td>{{ clan.name }}</td>
-        <td>
-            <img src="https://cdn.statsroyale.com/images/clan-trophies.png"  style="width:35px;">
-            {{ clan.clanScore }}</td>
-        <td>{{ clan.members }} / 50</td>
-        <td>
-            <img src="{{'https://statsroyale.com/images/flags/' + clan.location.id + '.png'}}"  style="width:35px;"
-            *ngIf='!(clan.location.name==="International"||clan.location.name==="Asia")'>
-              {{ clan.location.name}}
-      </tr>
-    </tbody>
-  </table>
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                <td>
+                    <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}"  style="width:35px;">
+                <td>{{ clan.name }}</td>
+                <td>
+                    <img src="https://cdn.statsroyale.com/images/clan-trophies.png"  style="width:35px;">
+                    {{ clan.clanScore }}</td>
+                <td>{{ clan.members }} / 50</td>
+                <td>
+                    <img src="{{'https://statsroyale.com/images/flags/' + clan.location.id + '.png'}}"  style="width:35px;"
+                    *ngIf='!(clan.location.name==="International"||clan.location.name==="Asia"||clan.location.name==="North America")'>
+                      {{ clan.location.name}}
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+  </div>
 </div>
+
+
+
 
