@@ -10,6 +10,8 @@ import { Chest } from 'src/app/models/players/chest';
 import { Battle } from 'src/app/models/players/battle';
 import { Item } from 'src/app/models/players/item';
 import { ClanWarClan } from 'src/app/models/ClanWar/clan-war-clan';
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
 
 @Component({
   selector: 'app-clan',
@@ -17,6 +19,7 @@ import { ClanWarClan } from 'src/app/models/ClanWar/clan-war-clan';
   styleUrls: ['./clan.component.css']
 })
 export class ClanComponent implements OnInit {
+  now = moment().format('LLLL');
   clan: Clan;
   clans: Array<Clan>;
   player: Player;
@@ -39,16 +42,17 @@ export class ClanComponent implements OnInit {
   before: string;
   clanTag: string;
   playerTag: string;
+  search: string;
 
-  ClanWarLog : Array<ClanWarLogEntry>;
+  ClanWarLog: Array<ClanWarLogEntry>;
 
 
   urlImgInit: string;
   urlImgFinis: string;
 
-  constructor(private clanService: ClanService,private playerService: PlayerService) {
-    this.urlImgInit="https://statsroyale.com/images/clanwars/";
-    this.urlImgFinis="_gold1.png";
+  constructor(private clanService: ClanService, private playerService: PlayerService) {
+    this.urlImgInit = "https://statsroyale.com/images/clanwars/";
+    this.urlImgFinis = "_gold1.png";
     this.clan = new Clan();
     this.clans = new Array<Clan>();
     this.player = new Player();
@@ -61,6 +65,8 @@ export class ClanComponent implements OnInit {
     this.currentClanWar = new CurrentClanWar();
     this.battle = new Battle();
     this.battles = new Array<Battle>();
+    this.search = "";
+
 
     this.ClanWarLog = new Array<ClanWarLogEntry>();
 
@@ -85,7 +91,7 @@ export class ClanComponent implements OnInit {
     //this.getClanAll();
     this.getClanTag();
     this.getClanMember();
-    //this.getClanWarLog();
+    this.getClanWarLog();
     //this.getClanCurrentWar();
     //this.getPlayerTag();
     //this.getPlayerUpComingChests();
@@ -101,7 +107,7 @@ export class ClanComponent implements OnInit {
   getClanAll() {
     this.clans = new Array<Clan>();
     this.clanService.getAll(this.name, this.locationId, this.minMembers, this.maxMembers, this.minScore, this.limit, this.after, this.before)
-      .subscribe( response => {
+      .subscribe(response => {
         response.items.forEach(element => {
           this.clan = new Clan();
           Object.assign(this.clan, element);
@@ -201,7 +207,7 @@ export class ClanComponent implements OnInit {
     limit?: number,
     after?: string,
     before?: string
-  ){
+  ) {
     this.clan = clan;
     this.clanTag = clan.tag;
     this.limit = limit;
@@ -210,8 +216,48 @@ export class ClanComponent implements OnInit {
     console.log(this.limit);
   }
 
-  selecClanWarLogEntry(clanWarLogEntry : ClanWarLogEntry){
+  selecClanWarLogEntry(clanWarLogEntry: ClanWarLogEntry) {
     this.clanWarLogEntry = clanWarLogEntry;
   }
 
+  setSearch(search: string) {
+    this.clanMembers = new Array<ClanMember>();
+    this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
+      .subscribe((response) => {
+        if (search!='all') {
+          response.items.forEach(element => {
+            console.log(element.role===search);
+            if (element.role===search) {
+              this.clanMembers.push(element);
+            }
+          });
+        } else {
+          this.clanMembers = response.items;
+        }
+        console.log(this.clanMembers);
+      }
+        , error => console.log(error)
+      );
+  }
+
+    //lastSeenFormat() : string{
+    lastSeenHoras(lastSeen :string) : string{
+    var cadena="";
+    var fechaLastSeen = moment(new Date(lastSeen));
+    //var fechaLastSeen = moment(new Date("2019-08-07:05:33"));
+    var fechaActual = moment(new Date());
+    var days = fechaActual.diff(fechaLastSeen, 'days');
+    var hours = fechaActual.diff(fechaLastSeen, 'hours');
+
+    if (days===0) {
+      if (hours===0) {
+        cadena = "Hace Menos de una hora";
+      } else {
+        cadena = "Hace "+ hours +" horas";
+      }
+    } else {
+      cadena = "Hace "+ days +" dias con "+ (hours - (days*24))+" horas";
+    }
+    return cadena;
+  }
 }

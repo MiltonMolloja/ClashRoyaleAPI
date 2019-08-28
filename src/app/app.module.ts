@@ -13,6 +13,9 @@ import { HomeComponent } from './components/home/home.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {DataTableModule} from "angular-6-datatable";
 import { ClanComponent } from './components/clan/clan.component';
+import * as moment from 'moment';
+
+
 
 @NgModule({
   declarations: [

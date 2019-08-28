@@ -1,3 +1,5 @@
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
+
 <div class="container">
   <br>
   <div class="row col-12">
@@ -43,66 +45,77 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div class="tab-pane container active" id="info">
-      <div class="row">
-        <div class="row col-4">
-          <div class="col-2">
-            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
-          </div>
-          <div class="col-2">
-            <h4 class="row">Trofeo </h4>
-            <p class="row">{{clan.clanWarTrophies}}</p>
-          </div>
-        </div>
-        <div class="row col-4">
-          <div class="col-2">
-            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
-          </div>
-          <div class="col-2">
-            <h4 class="row">Trofeos Requeridos </h4>
-            <p class="row">{{clan.clanWarTrophies}}</p>
-          </div>
-        </div>
-        <div class="row col-4">
-          <div class="col-2">
-            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
-          </div>
-          <div class="col-2">
-            <h4 class="row">Donaciones Por Semana </h4>
-            <p class="row">{{clan.clanWarTrophies}}</p>
-          </div>
-        </div>
-        <<div class="row col-4">
-          <div class="col-2">
-            <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
-          </div>
-          <div class="col-2">
-            <h4 class="row">Miebros </h4>
-            <p class="row">{{clan.clanWarTrophies}}</p>
-          </div>
-      </div>
-      <div class="row col-4">
-        <div class="col-2">
-          <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
-        </div>
-        <div class="col-2">
-          <h4 class="row">Pais </h4>
-          <p class="row">{{clan.clanWarTrophies}}</p>
-        </div>
-      </div>
-      <div class="row col-4">
-        <div class="col-2">
-          <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
-        </div>
-        <div class="col-2">
-          <h4 class="row">Tipo </h4>
-          <p class="row">{{clan.clanWarTrophies}}</p>
-        </div>
-      </div>
       <div>
+        <div class="row">
+          <div class="row col-4">
+            <div class="col-2">
+              <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+            </div>
+            <div class="col-2">
+              <h4 class="row">Trofeo </h4>
+              <p class="row">{{clan.clanWarTrophies}}</p>
+            </div>
+          </div>
+          <div class="row col-4">
+            <div class="col-2">
+              <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+            </div>
+            <div class="col-2">
+              <h4 class="row">Trofeos Requeridos </h4>
+              <p class="row">{{clan.clanWarTrophies}}</p>
+            </div>
+          </div>
+          <div class="row col-4">
+            <div class="col-2">
+              <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+            </div>
+            <div class="col-2">
+              <h4 class="row">Donaciones Por Semana </h4>
+              <p class="row">{{clan.clanWarTrophies}}</p>
+            </div>
+          </div>
+          <div class="row col-4">
+            <div class="col-2">
+              <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+            </div>
+            <div class="col-2">
+              <h4 class="row">Miebros </h4>
+              <p class="row">{{clan.clanWarTrophies}}</p>
+            </div>
+          </div>
 
+          <div class="row col-4">
+            <div class="col-2">
+              <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+            </div>
+            <div class="col-2">
+              <h4 class="row">Pais </h4>
+              <p class="row">{{clan.clanWarTrophies}}</p>
+            </div>
+          </div>
+          <div class="row col-4">
+            <div class="col-2">
+              <img src="https://statsroyale.com/images/clanwars/16000002_gold1.png" style="width:40px;" />
+            </div>
+            <div class="col-2">
+              <h4 class="row">Tipo </h4>
+              <p class="row">{{clan.clanWarTrophies}}</p>
+            </div>
+          </div>
+        </div>
 
         <h2>Miembros</h2>
         <p>Lista, Filtos</p>
+
+        <input class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="search">
+        <br>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" (click)="setSearch('all')">Mostrar Todos</button>
+          <button type="button" class="btn btn-primary" (click)="setSearch('leader')">Lider</button>
+          <button type="button" class="btn btn-primary" (click)="setSearch('coLeader')">Colider</button>
+          <button type="button" class="btn btn-primary" (click)="setSearch('member')">Miembro</button>
+          <button type="button" class="btn btn-primary" (click)="setSearch('elder')">Veterano</button>
+        </div>
 
         <div class="row">
           <div class="col">
@@ -129,14 +142,16 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="myTable">
                 <tr *ngFor="let item of mf.data">
                   <td>
                     {{ item.name }}
                   </td>
                   <td>
-
-                    {{ item.expLevel }}
+                    <div class="row">
+                      <img src="https://cdn.statsroyale.com/images/level-big.png" style="width:35px;">
+                      <h5> {{ item.expLevel }} </h5>
+                    </div>
                   </td>
                   <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
                   {{item.trophies }}
@@ -145,11 +160,14 @@
                     {{ item.donations }}
                   </td>
                   <td>
-                    {{ item.role }}
+                    <span *ngIf="item.role==='leader'">Líder</span>
+                    <span *ngIf="item.role==='coLeader'">Colíder</span>
+                    <span *ngIf="item.role==='member'">Miembro</span>
+                    <span *ngIf="item.role==='elder'">Veterano</span>
                   </td>
                   <td>
                     <img src="https://cdn.statsroyale.com/images/clock.png" style="width:35px;">
-                    {{ item.lastSeen | date: 'dd/MM/yyyy HH:mm' }}
+                    {{ lastSeenHoras(item.lastSeen | date: 'yyyy-MM-dd:HH:mm') }}
                   </td>
                 </tr>
               </tbody>
@@ -166,7 +184,83 @@
       </div>
     </div>
     <div class="tab-pane container fade" id="war">
-      war
+      <div *ngFor="let ClanWar of ClanWarLog">
+        <div class="row col-12">
+          <div class="col-8">
+            <H1>Temporada {{ClanWar.seasonId}}</H1>
+          </div>
+          <div class="col-4">
+            BOtonParticipantes
+          </div>
+        </div>
+        <div>
+          <h5>
+              <img src="https://cdn.statsroyale.com/images/clock.png" style="width:35px;">
+            {{ lastSeenHoras(ClanWar.createdDate | date: 'yyyy-MM-dd:HH:mm') }}
+          </h5>
+        </div>
+        <div class="row col-12">
+          <div >
+            <table class="table table-striped" [mfData]="ClanWar.standings" #mf="mfDataTable" [mfRowsOnPage]="5">
+              <thead>
+                <tr>
+                  <th style="width: 25%">
+                    <mfDefaultSorter by="clan.name">Nombre</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="clan.clanScore">clanScore</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="clan.crowns">crowns</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="clan.battlesPlayed">battlesPlayed</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="clan.wins">wins</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="clan.participants">participants</mfDefaultSorter>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="myTable">
+                <tr *ngFor="let item of mf.data">
+                  <td>
+                    <img src="{{urlImgInit + item.clan.badgeId + urlImgFinis}}" style="width:35px;">
+                    {{ item.clan.name }}
+                  </td>
+                  <td>
+                      <img src="https://cdn.statsroyale.com/images/battle-count.png" style="width:25px;">
+                    {{ item.clan.clanScore }}
+                  </td>
+                  <img src="https://cdn.statsroyale.com/images/blue-crown.png" style="width:30px;">
+                  {{item.clan.crowns }}
+                  <td>
+                      <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:25px;">
+                    {{ item.clan.battlesPlayed }}
+                  </td>
+                  <td>
+                    {{ item.clan.wins }}
+                  </td>
+                  <td>
+                      <img src="https://cdn.statsroyale.com/images/participants.png" style="width:25px;">
+                    {{ item.clan.participants }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="tab-pane container fade" id="battles">
       battles
@@ -179,22 +273,3 @@
     </div>
   </div>
 </div>
-
-
-
-<table class="table table-bordered table-sm">
-  <thead>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of clanMembers">
-      <td>{{item.name}}</td>
-      <td>{{item.role}}</td>
-      <td>{{item.tag}}</td>
-    </tr>
-  </tbody>
-</table>
