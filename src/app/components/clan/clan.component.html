@@ -100,6 +100,10 @@
       </div>
       <div>
 
+
+          <h2>Miembros</h2>
+          <p>Lista, Filtos</p>
+
           <div class="row">
               <div class="col">
                 <table class="table table-striped" [mfData]="clanMembers" #mf="mfDataTable" [mfRowsOnPage]="5">
@@ -122,7 +126,6 @@
                   <tbody>
                     <tr *ngFor="let item of mf.data">
                       <td>
-                        <img src="{{urlImgInit + item.badgeId + urlImgFinis}}" style="width:35px;">
                         {{ item.name }}
                       </td>
                       <td>
@@ -131,9 +134,7 @@
                       </td>
                       <td>{{item.role}} / 50</td>
                       <td>
-                        <img src="{{'https://statsroyale.com/images/flags/' + item.location.id + '.png'}}" style="width:35px;"
-                          *ngIf='!(item.location.name==="International"||item.location.name==="Asia"||item.location.name==="North America" ||item.location.name==="Ascension Island")'>
-                        {{ item.location.trophies}}
+                        {{ item.tag}}
                       </td>
                     </tr>
                   </tbody>
@@ -164,3 +165,22 @@
   </div>
 </div>
 </div>
+
+
+
+<table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of clanMembers">
+        <td>{{item.name}}</td>
+        <td>{{item.role}}</td>
+        <td>{{item.tag}}</td>
+      </tr>
+    </tbody>
+  </table>

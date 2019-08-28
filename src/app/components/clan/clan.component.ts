@@ -42,7 +42,13 @@ export class ClanComponent implements OnInit {
 
   ClanWarLog : Array<ClanWarLogEntry>;
 
+
+  urlImgInit: string;
+  urlImgFinis: string;
+
   constructor(private clanService: ClanService,private playerService: PlayerService) {
+    this.urlImgInit="https://statsroyale.com/images/clanwars/";
+    this.urlImgFinis="_gold1.png";
     this.clan = new Clan();
     this.clans = new Array<Clan>();
     this.player = new Player();
@@ -51,8 +57,8 @@ export class ClanComponent implements OnInit {
     this.chests = new Array<Chest>();
     this.clanMember = new ClanMember();
     this.clanMembers = new Array<ClanMember>();
-    this.clanWarLogEntry = new ClanWarLogEntry;
-    this.currentClanWar = new CurrentClanWar;
+    this.clanWarLogEntry = new ClanWarLogEntry();
+    this.currentClanWar = new CurrentClanWar();
     this.battle = new Battle();
     this.battles = new Array<Battle>();
 
@@ -124,6 +130,7 @@ export class ClanComponent implements OnInit {
     this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
       .subscribe((response) => {
         this.clanMembers = response.items;
+        console.log("this.clanMembers");
         console.log(this.clanMembers);
       }
         , error => console.log(error)
