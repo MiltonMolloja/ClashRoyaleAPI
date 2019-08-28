@@ -101,86 +101,100 @@
       <div>
 
 
-          <h2>Miembros</h2>
-          <p>Lista, Filtos</p>
+        <h2>Miembros</h2>
+        <p>Lista, Filtos</p>
 
-          <div class="row">
-              <div class="col">
-                <table class="table table-striped" [mfData]="clanMembers" #mf="mfDataTable" [mfRowsOnPage]="5">
-                  <thead>
-                    <tr>
-                      <th style="width: 30%">
-                        <mfDefaultSorter by="name">Name</mfDefaultSorter>
-                      </th>
-                      <th style="width: 20%">
-                        <mfDefaultSorter by="expLevel">expLevel</mfDefaultSorter>
-                      </th>
-                      <th style="width: 20%">
-                        <mfDefaultSorter by="role">role</mfDefaultSorter>
-                      </th>
-                      <th style="width: 30%">
-                        <mfDefaultSorter by="trophies">trophies</mfDefaultSorter>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of mf.data">
-                      <td>
-                        {{ item.name }}
-                      </td>
-                      <td>
-                        <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
-                        {{ item.expLevel }}
-                      </td>
-                      <td>{{item.role}} / 50</td>
-                      <td>
-                        {{ item.tag}}
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td colspan="4">
-                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
+        <div class="row">
+          <div class="col">
+            <table class="table table-striped" [mfData]="clanMembers" #mf="mfDataTable" [mfRowsOnPage]="5">
+              <thead>
+                <tr>
+                  <th style="width: 25%">
+                    <mfDefaultSorter by="name">Nombre</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="expLevel">Nivel De Exp</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="trophies">Trofeos</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="donations">Donaciones</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="role">Rol</mfDefaultSorter>
+                  </th>
+                  <th style="width: 15%">
+                    <mfDefaultSorter by="lastSeen">Ultima vez Visto</mfDefaultSorter>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of mf.data">
+                  <td>
+                    {{ item.name }}
+                  </td>
+                  <td>
 
+                    {{ item.expLevel }}
+                  </td>
+                  <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+                  {{item.trophies }}
+                  <td>
+                    <img src="https://cdn.statsroyale.com/images/tournament-cards.png" style="width:35px;">
+                    {{ item.donations }}
+                  </td>
+                  <td>
+                    {{ item.role }}
+                  </td>
+                  <td>
+                    <img src="https://cdn.statsroyale.com/images/clock.png" style="width:35px;">
+                    {{ item.lastSeen | date: 'dd/MM/yyyy HH:mm' }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="tab-pane container fade" id="war">
+      war
+    </div>
+    <div class="tab-pane container fade" id="battles">
+      battles
+    </div>
+    <div class="tab-pane container fade" id="stats">
+      stats
+    </div>
+    <div class="tab-pane container fade" id="history">
+      history
+    </div>
   </div>
-  <div class="tab-pane container fade" id="war">
-    war
-  </div>
-  <div class="tab-pane container fade" id="battles">
-    battles
-  </div>
-  <div class="tab-pane container fade" id="stats">
-    stats
-  </div>
-  <div class="tab-pane container fade" id="history">
-    history
-  </div>
-</div>
 </div>
 
 
 
 <table class="table table-bordered table-sm">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of clanMembers">
-        <td>{{item.name}}</td>
-        <td>{{item.role}}</td>
-        <td>{{item.tag}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of clanMembers">
+      <td>{{item.name}}</td>
+      <td>{{item.role}}</td>
+      <td>{{item.tag}}</td>
+    </tr>
+  </tbody>
+</table>
