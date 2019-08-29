@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { ClanService } from 'src/app/services/clan.service';
 import { Clan } from 'src/app/models/clans/clan';
 import { ClanMember } from 'src/app/models/clans/clan-member';
@@ -49,8 +50,10 @@ export class ClanComponent implements OnInit {
 
   urlImgInit: string;
   urlImgFinis: string;
+  dateNow: Date;
 
-  constructor(private clanService: ClanService, private playerService: PlayerService) {
+  constructor(private clanService: ClanService, private playerService: PlayerService, private cdRef: ChangeDetectorRef) {
+    //this.ngAfterViewChecked();
     this.urlImgInit = "https://statsroyale.com/images/clanwars/";
     this.urlImgFinis = "_gold1.png";
     this.clan = new Clan();
@@ -92,16 +95,22 @@ export class ClanComponent implements OnInit {
     this.getClanTag();
     this.getClanMember();
     this.getClanWarLog();
-    //this.getClanCurrentWar();
+    this.getClanCurrentWar();
     //this.getPlayerTag();
     //this.getPlayerUpComingChests();
     //this.getPlayerBattleLog();
     //this.clans = this.getClanAll();
     //console.log(this.getClanCurrentWarString("#YV2C8YC9"));
+    //this.ngAfterViewChecked();
   }
 
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    this.dateNow = new Date();
+    this.cdRef.detectChanges();
   }
 
   getClanAll() {
@@ -221,13 +230,14 @@ export class ClanComponent implements OnInit {
   }
 
   setSearch(search: string) {
+    this.ngAfterViewChecked();
     this.clanMembers = new Array<ClanMember>();
     this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
       .subscribe((response) => {
-        if (search!='all') {
+        if (search != 'all') {
           response.items.forEach(element => {
-            console.log(element.role===search);
-            if (element.role===search) {
+            console.log(element.role === search);
+            if (element.role === search) {
               this.clanMembers.push(element);
             }
           });
@@ -240,23 +250,23 @@ export class ClanComponent implements OnInit {
       );
   }
 
-    //lastSeenFormat() : string{
-    lastSeenHoras(lastSeen :string) : string{
-    var cadena="";
+  //lastSeenFormat() : string{
+  lastSeenHoras(lastSeen: string): string {
+    var cadena = "";
     var fechaLastSeen = moment(new Date(lastSeen));
     //var fechaLastSeen = moment(new Date("2019-08-07:05:33"));
     var fechaActual = moment(new Date());
     var days = fechaActual.diff(fechaLastSeen, 'days');
     var hours = fechaActual.diff(fechaLastSeen, 'hours');
 
-    if (days===0) {
-      if (hours===0) {
+    if (days === 0) {
+      if (hours === 0) {
         cadena = "Hace Menos de una hora";
       } else {
-        cadena = "Hace "+ hours +" horas";
+        cadena = "Hace " + hours + " horas";
       }
     } else {
-      cadena = "Hace "+ days +" dias con "+ (hours - (days*24))+" horas";
+      cadena = "Hace " + days + " dias con " + (hours - (days * 24)) + " horas";
     }
     return cadena;
   }

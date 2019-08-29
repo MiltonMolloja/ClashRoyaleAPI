@@ -26,19 +26,24 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#info">Informacion</a>
+      <a class="nav-link active" data-toggle="tab" href="#info"
+      (click)="ngAfterViewChecked()">Informacion</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#war">Guerra</a>
+      <a class="nav-link" data-toggle="tab" href="#war"
+      (click)="ngAfterViewChecked()">Guerra</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#battles">Batallas</a>
+      <a class="nav-link" data-toggle="tab" href="#pastWar"
+      (click)="ngAfterViewChecked()">Guerra Pasadas</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#stats">Estadisticas</a>
+      <a class="nav-link" data-toggle="tab" href="#stats"
+      (click)="ngAfterViewChecked()">Estadisticas</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#history">Historia</a>
+      <a class="nav-link" data-toggle="tab" href="#history"
+      (click)="ngAfterViewChecked()">Historia</a>
     </li>
   </ul>
 
@@ -107,19 +112,20 @@
         <h2>Miembros</h2>
         <p>Lista, Filtos</p>
 
-        <input class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="search">
+        <!--<input class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="search">-->
         <br>
         <div class="btn-group">
           <button type="button" class="btn btn-primary" (click)="setSearch('all')">Mostrar Todos</button>
-          <button type="button" class="btn btn-primary" (click)="setSearch('leader')">Lider</button>
-          <button type="button" class="btn btn-primary" (click)="setSearch('coLeader')">Colider</button>
-          <button type="button" class="btn btn-primary" (click)="setSearch('member')">Miembro</button>
-          <button type="button" class="btn btn-primary" (click)="setSearch('elder')">Veterano</button>
+          <button type="button" class="btn btn-primary" (click)="ngAfterViewChecked();setSearch('leader')">Lider</button>
+          <button type="button" class="btn btn-primary" (click)="ngAfterViewChecked();setSearch('coLeader')">Colider</button>
+          <button type="button" class="btn btn-primary" (click)="ngAfterViewChecked();setSearch('member')">Miembro</button>
+          <button type="button" class="btn btn-primary" (click)="ngAfterViewChecked();setSearch('elder')">Veterano</button>
         </div>
 
         <div class="row">
           <div class="col">
-            <table class="table table-striped" [mfData]="clanMembers" #mf="mfDataTable" [mfRowsOnPage]="5">
+            coment
+            <!-- <table class="table table-striped" [mfData]="clanMembers" #mf="mfDataTable" [mfRowsOnPage]="5">
               <thead>
                 <tr>
                   <th style="width: 25%">
@@ -178,92 +184,233 @@
                   </td>
                 </tr>
               </tfoot>
-            </table>
+            </table> -->
+
           </div>
         </div>
       </div>
     </div>
     <div class="tab-pane container fade" id="war">
+      <h5>
+        Estado: {{ currentClanWar.state }}
+      </h5>
+      <div>
+        <h3>Clasificaicon</h3>
+        <div>
+          coment
+           <!--  <div class="col">
+                <table class="table table-striped" [mfData]="currentClanWar.clans" #mf="mfDataTable" [mfRowsOnPage]="5">
+                  <thead>
+                    <tr>
+                      <th style="width: 30%">
+                        <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="clanScore">Exp</mfDefaultSorter>
+                      </th>
+                      <th style="width: 20%">
+                        <mfDefaultSorter by="members">Miembros</mfDefaultSorter>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let currentClan of mf.data">
+                      <td>
+                        <img src="{{urlImgInit + currentClan.badgeId + urlImgFinis}}" style="width:35px;">
+                        {{ currentClan.name }}
+                      </td>
+                      <td>
+                        <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
+                        {{ currentClan.clanScore }}
+                      </td>
+                      <td>{{currentClan.members}} / 50</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div> -->
+        </div>
+      </div>
+
+
+    </div>
+    <div class="tab-pane container fade" id="pastWar">
       <div *ngFor="let ClanWar of ClanWarLog">
         <div class="row col-12">
-          <div class="col-8">
+          <div>
             <H1>Temporada {{ClanWar.seasonId}}</H1>
-          </div>
-          <div class="col-4">
-            BOtonParticipantes
           </div>
         </div>
         <div>
           <h5>
-              <img src="https://cdn.statsroyale.com/images/clock.png" style="width:35px;">
+            <img src="https://cdn.statsroyale.com/images/clock.png" style="width:35px;">
             {{ lastSeenHoras(ClanWar.createdDate | date: 'yyyy-MM-dd:HH:mm') }}
           </h5>
         </div>
-        <div class="row col-12">
-          <div >
-            <table class="table table-striped" [mfData]="ClanWar.standings" #mf="mfDataTable" [mfRowsOnPage]="5">
-              <thead>
-                <tr>
-                  <th style="width: 25%">
-                    <mfDefaultSorter by="clan.name">Nombre</mfDefaultSorter>
-                  </th>
-                  <th style="width: 15%">
-                    <mfDefaultSorter by="clan.clanScore">clanScore</mfDefaultSorter>
-                  </th>
-                  <th style="width: 15%">
-                    <mfDefaultSorter by="clan.crowns">crowns</mfDefaultSorter>
-                  </th>
-                  <th style="width: 15%">
-                    <mfDefaultSorter by="clan.battlesPlayed">battlesPlayed</mfDefaultSorter>
-                  </th>
-                  <th style="width: 15%">
-                    <mfDefaultSorter by="clan.wins">wins</mfDefaultSorter>
-                  </th>
-                  <th style="width: 15%">
-                    <mfDefaultSorter by="clan.participants">participants</mfDefaultSorter>
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="myTable">
-                <tr *ngFor="let item of mf.data">
-                  <td>
-                    <img src="{{urlImgInit + item.clan.badgeId + urlImgFinis}}" style="width:35px;">
-                    {{ item.clan.name }}
-                  </td>
-                  <td>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#IdStandings">Estadisticas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#IdParticipants">Participantes</a>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane container active" id="IdStandings">
+            <div>
+              coment
+              <!-- <table class="table table-striped" [mfData]="ClanWar.standings" #mf="mfDataTable" [mfRowsOnPage]="5">
+                <thead>
+                  <tr>
+                    <th style="width: 25%">
+                      <mfDefaultSorter by="clan.name">Nombre</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                      <mfDefaultSorter by="clan.clanScore">clanScore</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                      <mfDefaultSorter by="clan.crowns">crowns</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                      <mfDefaultSorter by="clan.battlesPlayed">battlesPlayed</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                      <mfDefaultSorter by="clan.wins">wins</mfDefaultSorter>
+                    </th>
+                    <th style="width: 15%">
+                      <mfDefaultSorter by="clan.participants">participants</mfDefaultSorter>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of mf.data">
+                    <td>
+                      <img src="{{urlImgInit + item.clan.badgeId + urlImgFinis}}" style="width:35px;">
+                      {{ item.clan.name }}
+                    </td>
+                    <td>
                       <img src="https://cdn.statsroyale.com/images/battle-count.png" style="width:25px;">
-                    {{ item.clan.clanScore }}
-                  </td>
-                  <img src="https://cdn.statsroyale.com/images/blue-crown.png" style="width:30px;">
-                  {{item.clan.crowns }}
-                  <td>
+                      {{ item.clan.clanScore }}
+                    </td>
+                    <img src="https://cdn.statsroyale.com/images/blue-crown.png" style="width:30px;">
+                    {{item.clan.crowns }}
+                    <td>
                       <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:25px;">
-                    {{ item.clan.battlesPlayed }}
-                  </td>
-                  <td>
-                    {{ item.clan.wins }}
-                  </td>
-                  <td>
+                      {{ item.clan.battlesPlayed }}
+                    </td>
+                    <td>
+                      {{ item.clan.wins }}
+                    </td>
+                    <td>
                       <img src="https://cdn.statsroyale.com/images/participants.png" style="width:25px;">
-                    {{ item.clan.participants }}
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="4">
-                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+                      {{ item.clan.participants }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4">
+                      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table> -->
+            </div>
+          </div>
+          <div class="tab-pane container fade" id="IdParticipants">
+            <div class="row col-12">
+              <td class="container">
+                coment
+                 <!--  <table class="table table-striped" [mfData]="ClanWar.participants" #mf="mfDataTable" [mfRowsOnPage]="5">
+                      <thead>
+                        <tr>
+                          <th style="width: 25%">
+                            <mfDefaultSorter by="name">Nombre</mfDefaultSorter>
+                          </th>
+                          <th style="width: 15%">
+                            <mfDefaultSorter by="battlesPlayed">clanScore</mfDefaultSorter>
+                          </th>
+                          <th style="width: 15%">
+                            <mfDefaultSorter by="wins">crowns</mfDefaultSorter>
+                          </th>
+                          <th style="width: 15%">
+                            <mfDefaultSorter by="cardsEarned">battlesPlayed</mfDefaultSorter>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let participant of mf.data">
+                          <td>
+                            {{ participant.name }}
+                          </td>
+                          <td>
+                            <img src="https://cdn.statsroyale.com/images/battle-count.png" style="width:25px;">
+                            {{ participant.battlesPlayed }}
+                          </td>
+                          <img src="https://cdn.statsroyale.com/images/blue-crown.png" style="width:30px;">
+                          {{participant.wins }}
+                          <td>
+                            <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:25px;">
+                            {{ participant.cardsEarned }}
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="4">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table> -->
+
+                    coment
+                <!-- <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th> batallas </th>
+                      <th>Ganadas</th>
+                      <th>cantidad de batallas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let participant of ClanWar.participants| paginate: { itemsPerPage: 10, currentPage: p }">
+                      <td>
+                        {{ participant.name }}
+                      </td>
+                      <td>
+                        <img src="https://cdn.statsroyale.com/images/battle-count.png" style="width:35px;">
+                        {{ participant.battlesPlayed}} /{{ participant.numberOfBattles}}
+                      </td>
+                      <td>
+                        <img src="https://cdn.statsroyale.com/images/clan-win.png" style="width:35px;">
+                        {{ participant.wins}}
+                      </td>
+                      <td>
+                        <img src="https://cdn.statsroyale.com/images/common.png" style="width:35px;">
+                        {{ participant.cardsEarned }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+
+            </div>
           </div>
         </div>
       </div>
-
-    </div>
-    <div class="tab-pane container fade" id="battles">
-      battles
     </div>
     <div class="tab-pane container fade" id="stats">
       stats
