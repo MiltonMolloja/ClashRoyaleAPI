@@ -9,15 +9,19 @@ import { Clan } from 'src/app/models/clans/clan';
 })
 export class DataTableComponent implements OnInit {
 
+  @Input() characterClan: any[];
+
+  charactersC:  any[];
   characters: Observable<any[]>;
   columns: string[];
 
   constructor(private dataTableService: DataTableService) {
-    this.columns = this.dataTableService.getColumns();
-    this.characters = this.dataTableService.getCharacters();
   }
 
   ngOnInit() {
-
+    console.log(this.characterClan);
+    this.characters = Observable.of(this.characterClan);
+    this.columns = this.dataTableService.getColumns();
+    this.charactersC = this.characterClan;
   }
 }

@@ -13,6 +13,7 @@ import { Item } from 'src/app/models/players/item';
 import { ClanWarClan } from 'src/app/models/ClanWar/clan-war-clan';
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-clan',
@@ -106,6 +107,10 @@ export class ClanComponent implements OnInit {
 
 
   ngOnInit() {
+  }
+
+  getCharacters(): Observable<any[]>{
+    return this.clanService.getAll();
   }
 
   ngAfterViewChecked() {

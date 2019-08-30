@@ -1,6 +1,11 @@
-<td *ngFor="let col of columns; last as isLast">
-  <div *ngIf="isLast" >
-    <span>app-table-row</span>
-  </div>
-  {{character[col]}}
-</td>
+
+  <td *ngFor="let col of columns">
+    <div  *ngIf="col=='location'">
+        {{character[col].name}}
+    </div>
+    <div  *ngIf="col!='location'">
+        {{character[col]}}
+    </div>
+  </td>
+
+

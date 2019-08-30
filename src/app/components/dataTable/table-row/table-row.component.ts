@@ -10,7 +10,9 @@ export class TableRowComponent implements OnInit {
   @Input() character: any;
   @Input() columns: string[];
 
-  constructor() { }
+  constructor() {
+    console.log(this.character);
+   }
 
   ngOnInit() {
   }

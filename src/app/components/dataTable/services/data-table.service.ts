@@ -6,20 +6,23 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 
 import { CHARACTERS } from './mock-data';
+import { ClanService } from 'src/app/services/clan.service';
 
 @Injectable()
 export class DataTableService {
 
   constructor() { }
 
-  getCharacters(): Observable<any[]>{
-    return Observable.of(CHARACTERS);
+  getCharacters(array:Array<any>, stgg:string): Observable<any[]>{
+    console.log(array);
+    console.log(stgg);
+    return Observable.of(array);
   }
 
 
 
   getColumns(): string[]{
-    return ["name", "age", "species", "occupation1", "occupation2", "occupation3"]
+    return ["name", "clanScore", "members", "location"]
   }
 
 }
