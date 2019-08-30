@@ -91,7 +91,7 @@ export class ClanComponent implements OnInit {
 
     //this.limit = 10;
     //this.before = "asd";
-    //this.getClanAll();
+    this.getClanAll();
     this.getClanTag();
     this.getClanMember();
     this.getClanWarLog();

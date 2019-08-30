@@ -14,6 +14,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {DataTableModule} from "angular-6-datatable";
 import { ClanComponent } from './components/clan/clan.component';
 import * as moment from 'moment';
+import { DataTableComponent } from './components/dataTable/data-table/data-table.component';
+import { TableRowComponent } from './components/dataTable/table-row/table-row.component';
+import { DataTableService } from './components/dataTable/services/data-table.service';
 
 
 
@@ -24,7 +27,9 @@ import * as moment from 'moment';
     FooterComponent,
     ContentComponent,
     HomeComponent,
-    ClanComponent
+    ClanComponent,
+    DataTableComponent,
+    TableRowComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,7 @@ import * as moment from 'moment';
     NgxPaginationModule,
     DataTableModule
   ],
-  providers: [],
+  providers: [DataTableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
