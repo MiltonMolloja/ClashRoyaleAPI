@@ -17,6 +17,7 @@ import * as moment from 'moment';
 import { DataTableComponent } from './components/dataTable/data-table/data-table.component';
 import { TableRowComponent } from './components/dataTable/table-row/table-row.component';
 import { DataTableService } from './components/dataTable/services/data-table.service';
+import { ListClanComponent } from './components/list-clan/list-clan.component';
 
 
 
@@ -29,7 +30,8 @@ import { DataTableService } from './components/dataTable/services/data-table.ser
     HomeComponent,
     ClanComponent,
     DataTableComponent,
-    TableRowComponent
+    TableRowComponent,
+    ListClanComponent
   ],
   imports: [
     BrowserModule,

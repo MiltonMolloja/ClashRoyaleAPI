@@ -68,10 +68,10 @@
 					<div class="card img-fluid feature-item set-bg">
               <span class="cata new">Tag: {{clanTop.tag}}</span>
             <img class="card-img-top" src="https://statsroyale.com/images/clanwars/{{clanTop.badgeId}}_magical.png" alt="Card image" style="width:350%">
-						<div class="fi-content text-white">
-              <h2><a href="#">{{clanTop.name}}</a></h2>
-              <h4><a href="#">Puntuación: {{clanTop.clanScore}}</a></h4>
-              <h4><a href="#">Ubicación: {{clanTop.location.name}}</a></h4>
+						<div class="fi-content text-white">              
+              <h2><a routerLink="/clan/{{clanTop.tag}}">{{clanTop.name}}</a></h2>
+              <h4><a routerLink="/clan/{{clanTop.tag}}">Puntuación: {{clanTop.clanScore}}</a></h4>
+              <h4><a routerLink="/clan/{{clanTop.tag}}">Ubicación: {{clanTop.location.name}}</a></h4>
 							<a href="#" class="fi-comment">Cantidad de Miembros: {{clanTop.members}}</a>
 						</div>
 					</div>

@@ -14,16 +14,19 @@
       {{character[col[0]]}}
     </div>
     <div *ngIf="col[1]!='standings'">
-      <div *ngIf="col[0]!='lastSeen'">
-        <div *ngIf="col[1]!='clans'">
-          <img src="{{col[1]}}" style="width:35px;">
-          {{character[col[0]]}}
+      <div *ngIf="col[0]!='location'">
+        <div *ngIf="col[0]!='lastSeen'">
+          <div *ngIf="col[1]!='clans'">
+            <img src="{{col[1]}}" style="width:35px;">
+            {{character[col[0]]}}
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div *ngIf="table=='standings'">
-    <img src="https://statsroyale.com/images/clanwars/{{character.clan.badgeId}}_gold1.png" style="width:35px;" *ngIf="col[1]=='clans'">
+    <img src="https://statsroyale.com/images/clanwars/{{character.clan.badgeId}}_gold1.png" style="width:35px;"
+      *ngIf="col[1]=='clans'">
     <img src="{{col[1]}}" style="width:35px;" *ngIf="col[1]!='clans'">
     {{character.clan[col[0]]}}
   </div>

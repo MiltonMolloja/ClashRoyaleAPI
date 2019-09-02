@@ -11,7 +11,7 @@ export class ClanService {
 
   
   //private authorization : string="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjZmYjNiZWU0LTI2NDYtNDM5Zi05NDdkLTk3NjRhMjMzOTU1OSIsImlhdCI6MTU2NzE5NjcwMCwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.lF9WKJ8ZcOx2R9OPBiA8-NnSnT9S0x4zo-c_e6xICh5joJbwdnMriP8MK0O1WxI6p-Ty9p1BkGKs2fnEcgOSfA";
-  private authorization : string="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjAxMjUyMTkxLTFlYTktNDUyMC1iNmY3LTI5ZjMwYTExZWRlNCIsImlhdCI6MTU2NjkyNDM2NSwic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzYuMjM5Il0sInR5cGUiOiJjbGllbnQifV19.9aEZc-Vx5PWqngVteTIfPuDM7_pF43E-e7mo8_q7POcXvGeOtETHiHtQUPGDtbPjrWtkWOAZ0QNorQnMYjJUzA";
+  private authorization : string="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjAzM2YxZWU0LTZkODItNDFiNC04MDk0LTM2Y2U5MmNjZjZkZiIsImlhdCI6MTU2NzQ1NTU5Mywic3ViIjoiZGV2ZWxvcGVyL2E4YTk3N2U4LTE0ZmEtNDdjNi00YmMxLTVmNTk2MjBlMmIwYiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIxOTAuNTIuMzQuNDEiXSwidHlwZSI6ImNsaWVudCJ9XX0.BH0Yc3OykGbt03UVmDvpNq4bNjVLuB3J6bt3iypHeue0Q6yenjh5D76RPMcGJSWZDdCcbSZnI5z1EC0Je7AUiw";
 
 
   constructor(private _http: HttpClient) { }
@@ -71,7 +71,7 @@ export class ClanService {
     consultUrl = consultUrl.replace("#", "%23");
     consultUrl = consultUrl.replace(" ", "%20");
     consultUrl = consultUrl.replace("}", "%7D");
-    console.log(this.baseUrl + consultUrl);
+    ///console.log(this.baseUrl + consultUrl);
     return this._http.get(this.baseUrl + consultUrl , httpOptions);
   }
 
@@ -112,7 +112,7 @@ export class ClanService {
       moreOneParameter=true;
     }
     clanTag = clanTag.replace("#", "%23");
-    console.log(this.baseUrl + "/" + clanTag + "/members" + consultUrl);
+    ///console.log(this.baseUrl + "/" + clanTag + "/members" + consultUrl);
 
     return this._http.get(this.baseUrl + "/" + clanTag + "/members" + consultUrl, httpOptions);
   }
@@ -144,7 +144,7 @@ export class ClanService {
       moreOneParameter=true;
     }
     clanTag = clanTag.replace("#", "%23");
-    console.log(this.baseUrl + "/" + clanTag + "/members" + consultUrl);
+    ///console.log(this.baseUrl + "/" + clanTag + "/members" + consultUrl);
 
     return this._http.get(this.baseUrl + "/" + clanTag + "/warlog" + consultUrl, httpOptions);
   }
@@ -156,7 +156,7 @@ export class ClanService {
       })
     };
     clanTag = clanTag.replace("#", "%23");
-    //console.log(this.baseUrl + "/" + clanTag + "/currentwar" );
+    /////console.log(this.baseUrl + "/" + clanTag + "/currentwar" );
     return this._http.get(this.baseUrl + "/" + clanTag + "/currentwar", httpOptions);
   }
 }

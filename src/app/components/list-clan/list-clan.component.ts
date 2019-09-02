@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { ClanService } from 'src/app/services/clan.service';
 import { Clan } from 'src/app/models/clans/clan';
 import { ClanMember } from 'src/app/models/clans/clan-member';
@@ -10,26 +11,27 @@ import { Chest } from 'src/app/models/players/chest';
 import { Battle } from 'src/app/models/players/battle';
 import { Item } from 'src/app/models/players/item';
 import { ClanWarClan } from 'src/app/models/ClanWar/clan-war-clan';
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
+import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-list-clan',
+  templateUrl: './list-clan.component.html',
+  styleUrls: ['./list-clan.component.css']
 })
-export class HomeComponent implements OnInit {
-
+export class ListClanComponent implements OnInit {
+  protected tag: string;  
+  now = moment().format('LLLL');
   clan: Clan;
   clans: Array<Clan>;
-  clansTop10: Array<Clan>;
   player: Player;
   players: Array<Player>;
   chest: Chest;
   chests: Array<Chest>;
   clanMember: ClanMember
   clanMembers: Array<ClanMember>;
-  clanMembersTopLeader: Array<ClanMember>;
-  clanMembersTopCoLeader: Array<ClanMember>;
   clanWarLogEntry: ClanWarLogEntry;
   currentClanWar: CurrentClanWar;
   battle: Battle;
@@ -44,30 +46,38 @@ export class HomeComponent implements OnInit {
   before: string;
   clanTag: string;
   playerTag: string;
+  search: string;
 
-  ClanWarLog : Array<ClanWarLogEntry>;
+  ClanWarLog: Array<ClanWarLogEntry>;
+
 
   urlImgInit: string;
   urlImgFinis: string;
+  dateNow: Date;
 
-  constructor(private clanService: ClanService,private playerService: PlayerService) {
-    this.urlImgInit="https://statsroyale.com/images/clanwars/";
-    this.urlImgFinis="_gold1.png";
+  clanMembersString: string;
+
+  constructor(private clanService: ClanService, private playerService: PlayerService, private cdRef: ChangeDetectorRef) {
+    //this.ngAfterViewChecked();
+    
+
+    this.clanMembersString = "clanMembers"
+    this.urlImgInit = "https://statsroyale.com/images/clanwars/";
+    this.urlImgFinis = "_gold1.png";
     this.clan = new Clan();
     this.clans = new Array<Clan>();
-    this.clansTop10 = new Array<Clan>();
     this.player = new Player();
     this.players = new Array<Player>();
     this.chest = new Chest();
     this.chests = new Array<Chest>();
     this.clanMember = new ClanMember();
     this.clanMembers = new Array<ClanMember>();
-    this.clanMembersTopLeader = new Array<ClanMember>();
-    this.clanMembersTopCoLeader = new Array<ClanMember>();
-    this.clanWarLogEntry = new ClanWarLogEntry;
-    this.currentClanWar = new CurrentClanWar;
+    this.clanWarLogEntry = new ClanWarLogEntry();
+    this.currentClanWar = new CurrentClanWar();
     this.battle = new Battle();
     this.battles = new Array<Battle>();
+    this.search = "";
+
 
     this.ClanWarLog = new Array<ClanWarLogEntry>();
 
@@ -84,126 +94,48 @@ export class HomeComponent implements OnInit {
     //this.name = "xxxx";
     this.minMembers = 2;
     this.maxMembers = 10;
-    //this.clanTag = "#Y9PQYQ0R";
+
+    this.clanTag = "#YQRUP2UQ";
+    
     //this.playerTag = "#PRRYRC98J";
+
     //this.limit = 10;
     //this.before = "asd";
-    //this.getClanAll();
-    //this.sortClan();
-    //this.getClanTag();
-    //this.getClanMember();
-    //this.getClanWarLog();
-    //this.getClanCurrentWar();
+    this.getClanAll();
+    this.getClanTag();
+    this.getClanMember();
+    this.getClanWarLog();
+    this.getClanCurrentWar();
     //this.getPlayerTag();
     //this.getPlayerUpComingChests();
     //this.getPlayerBattleLog();
     //this.clans = this.getClanAll();
-    //console.log(this.getClanCurrentWarString("#YV2C8YC9"));
-    this.getClanAll();
-
-
-
-
-  }
-
-  ngOnInit() {
-
-    //this.getClanAll();
-    //this.getClansTop10();
-    //this.sortClan();
-
-  }
-
-  sortClan(orden: string){
-    this.clans.sort(function (a, b) { return  b.clanScore  - a.clanScore});
-    console.log(this.clans);
-  }
-
-  getClansTop10(){
-    this.clansTop10 = new Array<Clan>();
-    this.clans.sort(function (a, b) { return  b.clanScore  - a.clanScore});
-    var cont: number = 0;
-
-    this.clans.forEach(element => {
-      if (cont < 10) {
-        this.clansTop10.push(element);
-        cont++;
-      }
-    });
-    console.log(this.clansTop10);
-    this.getLeaderTop();
-    this.getCoLeaderTop();
-  }
-
-  getLeaderTop(){
-    this.clanMembersTopLeader = new Array<ClanMember>();
-    this.clansTop10.forEach(element => {
-        this.clanTag=element.tag;
-        this.clanMembers = new Array<ClanMember>();
-        this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
-          .subscribe((response) => {
-            this.clanMembers = new Array<ClanMember>();
-            //this.clanMembers = response.items;
-            //console.log("this.clanMembers");
-            response.items.forEach(element => {
-              this.clanMembers.push(element);
-            });
-            this.clanMembers.forEach(element => {
-              //console.log(element.role);
-              if (element.role==="leader") {
-                this.clanMembersTopLeader.push(element)
-              }
-            });
-          }
-            , error => console.log(error)
-          );
-    });
-    this.clanMembersTopLeader.sort(function (a, b) { return  b.expLevel  - a.expLevel});
-    ///console.log(this.clanMembersTopLeader);
+    ////console.log(this.getClanCurrentWarString("#YV2C8YC9"));
+    //this.ngAfterViewChecked();
   }
 
 
-  getCoLeaderTop(){
-    this.clanMembersTopCoLeader = new Array<ClanMember>();
-    this.clansTop10.forEach(element => {
-        this.clanTag=element.tag;
-        this.clanMembers = new Array<ClanMember>();
-        this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
-          .subscribe((response) => {
-            this.clanMembers = new Array<ClanMember>();
-            //this.clanMembers = response.items;
-            //console.log("this.clanMembers");
-            response.items.forEach(element => {
-              this.clanMembers.push(element);
-            });
-            this.clanMembers.forEach(element => {
-              console.log(element.role);
-              if (element.role==="coLeader") {
-                this.clanMembersTopCoLeader.push(element)
-              }
-            });
-          }
-            , error => console.log(error)
-          );
-    });
-    this.clanMembersTopCoLeader.sort(function (a, b) { return  b.expLevel  - a.expLevel});
-    console.log(this.clanMembersTopCoLeader);
+  ngOnInit() {  
   }
 
+  getCharacters(): Observable<any[]> {
+    return this.clanService.getAll();
+  }
 
+  ngAfterViewChecked() {
+    this.dateNow = new Date();
+    this.cdRef.detectChanges();
+  }
 
   getClanAll() {
     this.clans = new Array<Clan>();
     this.clanService.getAll(this.name, this.locationId, this.minMembers, this.maxMembers, this.minScore, this.limit, this.after, this.before)
-      .subscribe( response => {
+      .subscribe(response => {
         response.items.forEach(element => {
-          this.clan = new Clan();
-          Object.assign(this.clan, element);
-          this.clans.push(this.clan);
-
+          var clanTemp = new Clan();
+          Object.assign(clanTemp, element);
+          this.clans.push(clanTemp);
         });
-        this.getClansTop10();
-        //this.clans.sort(function (a, b) { return  b.clanScore  - a.clanScore});
         //console.log(this.clans);
       }
         , error => console.log(error)
@@ -215,7 +147,7 @@ export class HomeComponent implements OnInit {
       .subscribe((response: Clan) => {
         this.clan = new Clan();
         this.clan = response;
-        console.log(this.clan);
+        //console.log(this.clan);
       }
         , error => console.log(error)
       );
@@ -226,9 +158,8 @@ export class HomeComponent implements OnInit {
     this.clanMembers = new Array<ClanMember>();
     this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
       .subscribe((response) => {
-        this.clanMembers = new Array<ClanMember>();
         //this.clanMembers = response.items;
-        //console.log("this.clanMembers");
+        ////console.log("this.clanMembers");
         response.items.forEach(element => {
           this.clanMembers.push(element);
         });
@@ -243,7 +174,7 @@ export class HomeComponent implements OnInit {
     this.clanService.getWarLog(this.clanTag, this.limit, this.after, this.before)
       .subscribe((response) => {
         this.ClanWarLog = response.items;
-        console.log(this.ClanWarLog);
+        //console.log(this.ClanWarLog);
       }
         , error => console.log(error)
       );
@@ -257,7 +188,7 @@ export class HomeComponent implements OnInit {
         this.currentClanWar = new CurrentClanWar;
         this.currentClanWar = response;
         this.currentClanWar.clan = response.clan;
-        console.log(this.currentClanWar);
+        //console.log(this.currentClanWar);
       }
         , error => console.log(error)
       );
@@ -269,7 +200,7 @@ export class HomeComponent implements OnInit {
       .subscribe((response: Player) => {
         this.player = new Player();
         this.player = response;
-        console.log(this.player);
+        //console.log(this.player);
       }
         , error => console.log(error)
       );
@@ -280,7 +211,7 @@ export class HomeComponent implements OnInit {
       .subscribe((response: Array<Chest>) => {
         this.chests = new Array<Chest>();
         this.chests = response;
-        console.log(this.chests);
+        //console.log(this.chests);
       }
         , error => console.log(error)
       );
@@ -291,7 +222,7 @@ export class HomeComponent implements OnInit {
       .subscribe((response: Array<Battle>) => {
         this.battles = new Array<Battle>();
         this.battles = response;
-        console.log(this.battles);
+        //console.log(this.battles);
       }
         , error => console.log(error)
       );
@@ -302,17 +233,80 @@ export class HomeComponent implements OnInit {
     limit?: number,
     after?: string,
     before?: string
-  ){
+  ) {
     this.clan = clan;
     this.clanTag = clan.tag;
     this.limit = limit;
     this.after = after;
     this.before = before;
-    console.log(this.limit);
+    //console.log(this.limit);
   }
 
-  selecClanWarLogEntry(clanWarLogEntry : ClanWarLogEntry){
+  selecClanWarLogEntry(clanWarLogEntry: ClanWarLogEntry) {
     this.clanWarLogEntry = clanWarLogEntry;
   }
 
+  setTabla() {
+    if (this.clanMembersString != "clans") {
+      this.clanMembersString = "clans";
+    } else {
+      this.clanMembersString = "clanMembers";
+    }
+
+
+  }
+
+  setSearch(search: string) {
+    this.clanMembers = new Array<ClanMember>();
+    this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
+      .subscribe((response) => {
+        if (search != 'all') {
+          response.items.forEach(element => {
+            //console.log(element.role === search);
+            if (element.role === search) {
+              this.clanMembers.push(element);
+            }
+          });
+        } else {
+          this.clanMembers = response.items;
+        }
+        //console.log(this.clanMembers);
+      }
+        , error => console.log(error)
+      );
+  }
+
+  setSearch3(search: string) {
+    var clanMembersTemp = new Array<ClanMember>();
+    this.getClanMember();
+    if (search != "all") {
+      this.clanMembers.forEach(element => {
+        if (element.role != search) {
+          clanMembersTemp.push(element);
+        }
+      });
+      this.clanMembers = clanMembersTemp;
+    }
+  }
+
+  //lastSeenFormat() : string{
+  lastSeenHoras(lastSeen: string): string {
+    var cadena = "";
+    var fechaLastSeen = moment(new Date(lastSeen));
+    //var fechaLastSeen = moment(new Date("2019-08-07:05:33"));
+    var fechaActual = moment(new Date());
+    var days = fechaActual.diff(fechaLastSeen, 'days');
+    var hours = fechaActual.diff(fechaLastSeen, 'hours');
+
+    if (days === 0) {
+      if (hours === 0) {
+        cadena = "Hace Menos de una hora";
+      } else {
+        cadena = "Hace " + hours + " horas";
+      }
+    } else {
+      cadena = "Hace " + days + " dias con " + (hours - (days * 24)) + " horas";
+    }
+    return cadena;
+  }
 }
