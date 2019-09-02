@@ -1,13 +1,18 @@
-<div >
 <br>
-<table >
-    <thead>
-      <tr>
-        <th *ngFor="let c of columns"> {{c}} </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ch of characters | async" app-table-row [character]="ch" [columns]="columns">
-      </tr>
-    </tbody>
-  </table>
+<h2>{{table}}</h2>
+<br>
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let c of columns"> {{c[0]}} </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ch of characters | async | paginate: { itemsPerPage: itemsPerPageNumber, currentPage: p }" app-table-row
+      [character]="ch" [columns]="columns" [table]="table">
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="!(characterClan.length <= itemsPerPageNumber)">
+<pagination-controls (pageChange)="p = $event"> </pagination-controls>
+</div>

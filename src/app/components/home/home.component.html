@@ -1,50 +1,47 @@
-<app-data-table [characterClan]="clans">
-
-<div id="demo" class="carousel slide" data-ride="carousel">
-  <ul class="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-    <li data-target="#demo" data-slide-to="3"></li>
-  </ul>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="./../../../assets//img//home01.png" alt="Los Angeles" width="1100" height="500">
-      <div class="carousel-caption">
-        <h3>Los Angeles</h3>
-        <p>We had such a great time in LA!</p>
-      </div>
+<div id="demo" class="carousel slide latest-news-section" data-ride="carousel">
+    <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+        <li data-target="#demo" data-slide-to="3"></li>
+    </ul>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="img-fluid" src="./../../../assets//img//home01.png" alt="Los Angeles" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="img-fluid" src="./../../../assets//img//home02.jpg" alt="Chicago" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>Chicago</h3>
+              <p>Thank you, Chicago!</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="img-fluid" src="./../../../assets//img//home04.png" alt="New York" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>New York</h3>
+              <p>We love the Big Apple!</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="img-fluid" src="./../../../assets//img//home6.jpg" alt="New York" width="1100" height="500">
+            <div class="carousel-caption">
+              <h3>New York</h3>
+              <p>We love the Big Apple!</p>
+            </div>
+          </div>
     </div>
-    <div class="carousel-item">
-      <img src="./../../../assets//img//home02.jpg" alt="Chicago" width="1100" height="500">
-      <div class="carousel-caption">
-        <h3>Chicago</h3>
-        <p>Thank you, Chicago!</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="./../../../assets//img//home04.png" alt="New York" width="1100" height="500">
-      <div class="carousel-caption">
-        <h3>New York</h3>
-        <p>We love the Big Apple!</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="./../../../assets//img//home6.jpg" alt="New York" width="1100" height="500">
-      <div class="carousel-caption">
-        <h3>New York</h3>
-        <p>We love the Big Apple!</p>
-      </div>
-    </div>
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
   </div>
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
-</div>
-
 
 
 <!-- Latest news section -->
@@ -61,85 +58,31 @@
 </div>
 <!-- Latest news section end -->
 
-<div class="row">
-  <div class="col">
-    <table class="table table-striped" [mfData]="clans" #mf="mfDataTable" [mfRowsOnPage]="5">
-      <thead>
-        <tr>
-          <th style="width: 30%">
-            <mfDefaultSorter by="name">Name</mfDefaultSorter>
-          </th>
-          <th style="width: 20%">
-            <mfDefaultSorter by="clanScore">Exp</mfDefaultSorter>
-          </th>
-          <th style="width: 20%">
-            <mfDefaultSorter by="members">Miembros</mfDefaultSorter>
-          </th>
-          <th style="width: 30%">
-            <mfDefaultSorter by="location.name">Pais</mfDefaultSorter>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of mf.data">
-          <td>
-            <img src="{{urlImgInit + item.badgeId + urlImgFinis}}" style="width:35px;">
-            {{ item.name }}
-          </td>
-          <td>
-            <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
-            {{ item.clanScore }}
-          </td>
-          <td>{{item.members}} / 50</td>
-          <td>
-            <img src="{{'https://statsroyale.com/images/flags/' + item.location.id + '.png'}}" style="width:35px;"
-              *ngIf='!(item.location.name==="International"||item.location.name==="Asia"||item.location.name==="North America" ||item.location.name==="Ascension Island")'>
-            {{ item.location.name}}
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4">
-            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
 
+<!-- Feature section -->
+<section class="feature-section spad">
+		<div class="container">
+      <h1 style="font-style: italic; text-align: center;"><em><strong><span style="font-family:arial,helvetica,sans-serif;">Los Mejores 10 Clanes</span></strong></em></h1>
+			<div class="row">
+				<div class="col-lg-3 col-md-6 p-0" *ngFor="let clanTop of clansTop10">
+					<div class="card img-fluid feature-item set-bg">
+              <span class="cata new">Tag: {{clanTop.tag}}</span>
+            <img class="card-img-top" src="https://statsroyale.com/images/clanwars/{{clanTop.badgeId}}_magical.png" alt="Card image" style="width:350%">
+						<div class="fi-content text-white">
+              <h2><a href="#">{{clanTop.name}}</a></h2>
+              <h4><a href="#">Puntuación: {{clanTop.clanScore}}</a></h4>
+              <h4><a href="#">Ubicación: {{clanTop.location.name}}</a></h4>
+							<a href="#" class="fi-comment">Cantidad de Miembros: {{clanTop.members}}</a>
+						</div>
+					</div>
+        </div>
+			</div>
+		</div>
+	</section>
+  <!-- Feature section end -->
+<!-- <app-data-table [characterClan]="clansTop10" [table]="'clans'" ></app-data-table> -->
+<h1 style="font-style: italic; text-align: center;"><em><strong><span style="font-family:arial,helvetica,sans-serif;">Los Mejores 10 Lideres</span></strong></em></h1>
+<app-data-table [characterClan]="clanMembersTopLeader" [table]="'clanMembers'" ></app-data-table>
+<h1 style="font-style: italic; text-align: center;"><em><strong><span style="font-family:arial,helvetica,sans-serif;">Los Mejores Colideres</span></strong></em></h1>
+<app-data-table [characterClan]="clanMembersTopCoLeader" [table]="'clanMembers'" ></app-data-table>
 
-  <div class="col">
-    <div class="container">
-      <h2>Mejores Jugadores</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Exp</th>
-            <th>Miembros</th>
-            <th>Pais</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let clan of clans| paginate: { itemsPerPage: 5, currentPage: p }">
-
-            <td>
-              <img src="{{urlImgInit + clan.badgeId + urlImgFinis}}" style="width:35px;">
-            <td>{{ clan.name }}</td>
-            <td>
-              <img src="https://cdn.statsroyale.com/images/clan-trophies.png" style="width:35px;">
-              {{ clan.clanScore }}</td>
-            <td>{{ clan.members }} / 50</td>
-            <td>
-              <img src="{{'https://statsroyale.com/images/flags/' + clan.location.id + '.png'}}" style="width:35px;"
-                *ngIf='!(clan.location.name==="International"||clan.location.name==="Asia"||clan.location.name==="North America")'>
-              {{ clan.location.name}}
-          </tr>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
-    </div>
-
-  </div>
-</div>

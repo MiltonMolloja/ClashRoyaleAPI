@@ -1,11 +1,31 @@
-
-  <td *ngFor="let col of columns">
-    <div  *ngIf="col=='location'">
-        {{character[col].name}}
+<td *ngFor="let col of columns">
+  <div *ngIf="table!='standings'">
+    <div *ngIf="col[0]=='location'">
+      <img src="https://statsroyale.com/images/flags/{{character[col[0]].id}}.png" style="width:35px;" *ngIf='!(character[col[0]].name==="International"||character[col[0]].name==="Asia"||
+      character[col[0]].name==="North America" ||character[col[0]].name==="Ascension Island")'>
+      {{character[col[0]].name}}
     </div>
-    <div  *ngIf="col!='location'">
-        {{character[col]}}
+    <div *ngIf="col[0]=='lastSeen'">
+      <img src="{{col[1]}}" style="width:35px;" *ngIf="col[1]!='clans'">
+      {{ lastSeenHoras( (character[col[0]]) | date: 'yyyy-MM-dd:HH:mm') }}
     </div>
-  </td>
+    <div *ngIf="col[1]=='clans'">
+      <img src="https://statsroyale.com/images/clanwars/{{character.badgeId}}_gold1.png" style="width:35px;">
+      {{character[col[0]]}}
+    </div>
+    <div *ngIf="col[1]!='standings'">
+      <div *ngIf="col[0]!='lastSeen'">
+        <div *ngIf="col[1]!='clans'">
+          <img src="{{col[1]}}" style="width:35px;">
+          {{character[col[0]]}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="table=='standings'">
+    <img src="https://statsroyale.com/images/clanwars/{{character.clan.badgeId}}_gold1.png" style="width:35px;" *ngIf="col[1]=='clans'">
+    <img src="{{col[1]}}" style="width:35px;" *ngIf="col[1]!='clans'">
+    {{character.clan[col[0]]}}
+  </div>
 
-
+</td>

@@ -53,8 +53,11 @@ export class ClanComponent implements OnInit {
   urlImgFinis: string;
   dateNow: Date;
 
+  clanMembersString: string;
+
   constructor(private clanService: ClanService, private playerService: PlayerService, private cdRef: ChangeDetectorRef) {
     //this.ngAfterViewChecked();
+    this.clanMembersString = "clanMembers"
     this.urlImgInit = "https://statsroyale.com/images/clanwars/";
     this.urlImgFinis = "_gold1.png";
     this.clan = new Clan();
@@ -85,9 +88,9 @@ export class ClanComponent implements OnInit {
     this.clanTag = null;
     this.playerTag = null;
     //this.name = "xxxx";
-    //this.minMembers = 2;
-    //this.maxMembers = 8;
-    this.clanTag = "#Y9PQYQ0R";
+    this.minMembers = 2;
+    this.maxMembers = 10;
+    this.clanTag = "#9CRYUQ2";
     //this.playerTag = "#PRRYRC98J";
 
     //this.limit = 10;
@@ -109,7 +112,7 @@ export class ClanComponent implements OnInit {
   ngOnInit() {
   }
 
-  getCharacters(): Observable<any[]>{
+  getCharacters(): Observable<any[]> {
     return this.clanService.getAll();
   }
 
@@ -123,9 +126,9 @@ export class ClanComponent implements OnInit {
     this.clanService.getAll(this.name, this.locationId, this.minMembers, this.maxMembers, this.minScore, this.limit, this.after, this.before)
       .subscribe(response => {
         response.items.forEach(element => {
-          this.clan = new Clan();
-          Object.assign(this.clan, element);
-          this.clans.push(this.clan);
+          var clanTemp = new Clan();
+          Object.assign(clanTemp, element);
+          this.clans.push(clanTemp);
         });
         console.log(this.clans);
       }
@@ -149,8 +152,11 @@ export class ClanComponent implements OnInit {
     this.clanMembers = new Array<ClanMember>();
     this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
       .subscribe((response) => {
-        this.clanMembers = response.items;
-        console.log("this.clanMembers");
+        //this.clanMembers = response.items;
+        //console.log("this.clanMembers");
+        response.items.forEach(element => {
+          this.clanMembers.push(element);
+        });
         console.log(this.clanMembers);
       }
         , error => console.log(error)
@@ -234,8 +240,17 @@ export class ClanComponent implements OnInit {
     this.clanWarLogEntry = clanWarLogEntry;
   }
 
+  setTabla() {
+    if (this.clanMembersString != "clans") {
+      this.clanMembersString = "clans";
+    } else {
+      this.clanMembersString = "clanMembers";
+    }
+
+
+  }
+
   setSearch(search: string) {
-    this.ngAfterViewChecked();
     this.clanMembers = new Array<ClanMember>();
     this.clanService.getMembers(this.clanTag, this.limit, this.after, this.before)
       .subscribe((response) => {
@@ -253,6 +268,19 @@ export class ClanComponent implements OnInit {
       }
         , error => console.log(error)
       );
+  }
+
+  setSearch3(search: string) {
+    var clanMembersTemp = new Array<ClanMember>();
+    this.getClanMember();
+    if (search != "all") {
+      this.clanMembers.forEach(element => {
+        if (element.role != search) {
+          clanMembersTemp.push(element);
+        }
+      });
+      this.clanMembers = clanMembersTemp;
+    }
   }
 
   //lastSeenFormat() : string{
