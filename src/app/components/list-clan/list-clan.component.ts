@@ -22,7 +22,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./list-clan.component.css']
 })
 export class ListClanComponent implements OnInit {
-  protected tag: string;  
+  protected tag: string;
   now = moment().format('LLLL');
   clan: Clan;
   clans: Array<Clan>;
@@ -59,7 +59,7 @@ export class ListClanComponent implements OnInit {
 
   constructor(private clanService: ClanService, private playerService: PlayerService, private cdRef: ChangeDetectorRef) {
     //this.ngAfterViewChecked();
-    
+
 
     this.clanMembersString = "clanMembers"
     this.urlImgInit = "https://statsroyale.com/images/clanwars/";
@@ -96,7 +96,7 @@ export class ListClanComponent implements OnInit {
     this.maxMembers = 10;
 
     this.clanTag = "#YQRUP2UQ";
-    
+
     //this.playerTag = "#PRRYRC98J";
 
     //this.limit = 10;
@@ -106,6 +106,7 @@ export class ListClanComponent implements OnInit {
     this.getClanMember();
     this.getClanWarLog();
     this.getClanCurrentWar();
+    this.sortClans("members");
     //this.getPlayerTag();
     //this.getPlayerUpComingChests();
     //this.getPlayerBattleLog();
@@ -115,7 +116,7 @@ export class ListClanComponent implements OnInit {
   }
 
 
-  ngOnInit() {  
+  ngOnInit() {
   }
 
   getCharacters(): Observable<any[]> {
@@ -125,6 +126,46 @@ export class ListClanComponent implements OnInit {
   ngAfterViewChecked() {
     this.dateNow = new Date();
     this.cdRef.detectChanges();
+  }
+
+
+  sortClans(sort: string){
+    switch (sort) {
+      case 'name':
+          this.clans.sort(function (a, b) {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (a.name < b.name) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+        break;
+        case 'clanScore':
+          this.clans.sort(function (a, b) { return  b.clanScore  - a.clanScore});
+        break;
+        case 'members':
+          this.clans.sort(function (a, b) { return  a.members  - b.members});
+        break;
+        case 'locationName':
+          this.clans.sort(function (a, b) {
+            if (a.location.name > b.location.name) {
+              return 1;
+            }
+            if (a.location.name < b.location.name) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+        break;
+
+      default:
+              this.clans.sort(name);
+        break;
+    }
   }
 
   getClanAll() {

@@ -1,2 +1,15 @@
+<br>
+<div class="row">
+  Ordenar Por
+</div>
+
+
+<button type="button" class="btn btn-primary" (click)="sortClans('name')">Nombre</button>
+<button type="button" class="btn btn-primary" (click)="sortClans('clanScore')">Puntacion</button>
+<button type="button" class="btn btn-primary" (click)="sortClans('members')">Mienbros</button>
+<button type="button" class="btn btn-primary" (click)="sortClans('locationName')">Ubición</button>
+
+
 <h1 style="font-style: italic; text-align: center;"><em><strong><span style="font-family:arial,helvetica,sans-serif;">Los Mejores Colideres</span></strong></em></h1>
-<app-data-table [characterClan]="clans" [table]="'clans'" ></app-data-table>
+
+<app-data-table [characterClan]="clans" [table]="'clans'"></app-data-table>
